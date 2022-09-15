@@ -1,12 +1,47 @@
 import * as C from "./styles"
-import { Header } from "../../components/Header"
 import { Theme } from "../../components/Theme"
+import homeImg from "../../assets/home-img.svg"
+import { FoodItem } from "../../components/FoodItem"
+import coffee from "../../assets/coffee.png"
 
 export function Home() {
   return (
     <Theme>
       <C.Container>
-        <h1>Hello</h1>
+        <C.Hero>
+          <img src={homeImg} alt="" />
+          <div>
+          <h1>Sabores inigualáveis</h1>
+          <p>Sinta o cuidado do preparo com ingrediente selecionados</p>
+          </div>
+        </C.Hero>
+        <C.Section>
+          <h1>Pratos principais</h1>
+          <FoodItem
+          img={coffee}
+          title="Expresso"
+          description="Café cremoso feito na temperatura e pressões perfeitas"
+          price="49,97"
+          />
+        </C.Section>
+        <C.Section>
+          <h1>Sobremesas</h1>
+          <FoodItem
+          img={coffee}
+          title="Expresso"
+          description="Café cremoso feito na temperatura e pressões perfeitas"
+          price="49,97"
+          />
+        </C.Section>
+        <C.Section>
+          <h1>Bebidas</h1>
+          <FoodItem
+          img={coffee}
+          title="Expresso"
+          description="Café cremoso feito na temperatura e pressões perfeitas"
+          price="49,97"
+          />
+        </C.Section>
       </C.Container>
     </Theme>
   )
