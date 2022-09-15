@@ -28,9 +28,15 @@ export default createGlobalStyle`
     border: none;
   }
 
+  input, textarea {
+    background: transparent;
+    border: none;
+  }
+
   a {
     text-decoration: none;
     color: ${({ theme }) => theme.COLORS.WHITE};
+    font-size: 1.4rem;
   }
 
   a:hover, button:hover {
