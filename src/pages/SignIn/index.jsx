@@ -22,7 +22,7 @@ export function SignIn() {
         placeholder="Mínimo 6 caracteres"
         type="password"
         />
-      <Button title="Criar Conta"/>
+      <Button title="Entrar"/>
       <Link to="/signup">
         Criar uma conta
       </Link>

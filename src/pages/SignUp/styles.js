@@ -4,7 +4,7 @@ export const Container = styled.div`
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-columns: auto 40%;
+  grid-template-columns: auto 50%;
   grid-template-rows: 100%;
   grid-template-areas:
   "logo content"
@@ -13,6 +13,11 @@ export const Container = styled.div`
   img {
     width: 30rem;
   }
+
+  @media (max-width: 800px) {
+    display: flex;
+    justify-content: center;
+  }
 `
 
 export const Logo = styled.div`
@@ -20,6 +25,10 @@ export const Logo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 `
 
 export const Content = styled.div`
