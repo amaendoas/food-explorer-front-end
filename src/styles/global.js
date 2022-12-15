@@ -6,6 +6,10 @@ export default createGlobalStyle`
     font-size: 62.5%;
   }
 
+  #root {
+    animation: slideUp 1s ease backwards;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -41,6 +45,17 @@ export default createGlobalStyle`
 
   a:hover, button:hover {
     filter: brightness(1.1);
+  }
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
 

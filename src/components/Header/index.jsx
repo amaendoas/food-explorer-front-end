@@ -5,8 +5,11 @@ import { Button } from "../Button"
 import { BsSearch } from "react-icons/bs"
 import { FiLogOut } from "react-icons/fi"
 import { BsReceipt } from "react-icons/bs"
+import { useAuth } from "../../hooks/auth"
 
 export function Header() {
+  const { signOut } = useAuth();
+
   return(
     <C.Container>
       <img src={logo} alt="logo" />
@@ -18,7 +21,7 @@ export function Header() {
         <input type="text" placeholder="Busque pelas opções de pratos" />
       </C.Search>
       <Button title="Meus pedidos" icon={BsReceipt}/>
-      <button className="logout">
+      <button className="logout" onClick={signOut}>
         <FiLogOut/>
       </button>
     </C.Container>

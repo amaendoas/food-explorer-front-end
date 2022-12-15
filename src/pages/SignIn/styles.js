@@ -38,6 +38,8 @@ export const Content = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 3.2rem;
+  animation: slideUp 1s ease backwards;
+  
   h1 {
     font-weight: 500;
     font-size: 3rem;

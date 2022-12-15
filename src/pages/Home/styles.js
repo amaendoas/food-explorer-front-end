@@ -4,6 +4,7 @@ export const Container = styled.div`
   grid-area: content;
   height: 100%;
   padding: 3rem 12rem;
+  animation: slideUp 1s ease backwards;
 `
 
 export const Hero = styled.div`
