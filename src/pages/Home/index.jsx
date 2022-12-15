@@ -10,7 +10,7 @@ export function Home() {
       <C.Container>
         <C.Hero>
           <img src={homeImg} alt="" />
-          <div>
+          <div className="home-text">
           <h1>Sabores inigualáveis</h1>
           <p>Sinta o cuidado do preparo com ingrediente selecionados</p>
           </div>

@@ -10,6 +10,10 @@ export default createGlobalStyle`
     animation: slideUp 1s ease backwards;
   }
 
+  .suppress-scroll {
+    overflow: hidden;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -55,6 +59,15 @@ export default createGlobalStyle`
     100% {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+
+  @keyframes slideRight {
+    0% {
+      transform: translateX(200px);
+    }
+    100% {
+      transform: translateX(0);
     }
   }
 

@@ -5,34 +5,55 @@ export const Container = styled.div`
   height: 100%;
   padding: 3rem 12rem;
   animation: slideUp 1s ease backwards;
+
+  @media (max-width: 1180px) {
+    padding: 3rem 7rem;
+  }
 `
 
 export const Hero = styled.div`
     width: 100%;
-    height: 26rem;
-    background-color: ${({theme}) => theme.COLORS.BACKGROUND_800};
-    margin: 16.4rem 0 6rem;
-    position: relative;
-    border-radius: 8px;
+    height: fit-content;
+    margin: 10rem 0 17rem;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: start;
+    gap: calc(2rem + 5vw);
     text-align: start;
-    padding: 0 12rem;
+    padding: 0 2rem;
+    position: relative;
+
+    .home-text {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    ::after {
+      left: 0;
+      content: '';
+      height: calc(10rem + 10vw);
+      width: 100%;
+      position: absolute;
+      background: linear-gradient(180deg, #091E26 0%, #00131C 100%);
+      z-index: -1;
+      border-radius: 8px;
+    }
 
     h1 {
-      font-size: 4rem;
+      font-size: calc(1rem + 2vw);
       font-weight: 500;
     }
 
     p {
-      font-size: 1.6rem;
+      font-size: calc(0.5rem + 1vw);
     }
 
     img {
-      position: absolute;
-      bottom: 0;
-      left: -5rem;
+      width: calc(10rem + 30vw);
+      margin: -5rem;
     }
 `
 
