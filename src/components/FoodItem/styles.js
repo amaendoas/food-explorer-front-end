@@ -17,7 +17,7 @@ export const Container = styled.div`
   -webkit-box-shadow: 0px 0px 40px 4px rgba(0,0,0,0.56);
   -moz-box-shadow: 0px 0px 40px 4px rgba(0,0,0,0.56);
   box-shadow: 0px 0px 40px 4px rgba(0,0,0,0.56);
-  
+
   
   .fav-btn, .edit-btn {
     position: absolute;
@@ -35,12 +35,13 @@ export const Container = styled.div`
   }
 
   img {
-    width: 18rem;
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
   }
 
-  h1 {
-    font-size: 2.4rem;
-    margin: 0;
+  h2 {
+    font-size: 2.7rem;
   }
 
   .description {
@@ -50,7 +51,7 @@ export const Container = styled.div`
 
   .price {
     color: ${({theme}) => theme.COLORS.PRIMARY};
-    font-size: 3rem;
+    font-size: 2.7rem;
   }
 
 `

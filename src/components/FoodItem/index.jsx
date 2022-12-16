@@ -3,10 +3,11 @@ import {IoMdHeartEmpty, IoMdHeart} from "react-icons/io";
 import { AiOutlineMinus,AiOutlinePlus} from "react-icons/ai";
 import { TbEdit } from "react-icons/tb";
 import { Button } from "../Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/auth";
 import { useOrder } from "../../hooks/order";
 import { useNavigate } from "react-router-dom";
+import foodImg from "../../assets/food-default.svg"
 
 export function FoodItem({img, title, description, price, dishId}) {
   const [count, setCount] = useState(1);
@@ -25,6 +26,11 @@ export function FoodItem({img, title, description, price, dishId}) {
     }
     return setCount(prevState => prevState - 1)
   }
+
+  useEffect(() => {
+    const favList = Array.from(user)
+    console.log(user)
+  }, [user])
   
   
   return (
@@ -39,8 +45,8 @@ export function FoodItem({img, title, description, price, dishId}) {
         }
       </button>
       }
-      <img src={img} alt={`imagem de ${title}`} />
-      <h1>{title}</h1>
+      <img src={img ? img : foodImg} alt={`imagem de ${title}`} />
+      <h2>{title}</h2>
       <p className="description">{description}</p>
       <p className="price">R$ {price}</p>
       <C.Count>

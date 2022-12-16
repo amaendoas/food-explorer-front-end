@@ -14,6 +14,15 @@ export default createGlobalStyle`
     overflow: hidden;
   }
 
+  .default-msg {
+    font-size: 2rem;
+    
+  }
+
+  h1, h2, h3 {
+    font-weight: 500;
+  }
+
   * {
     margin: 0;
     padding: 0;
