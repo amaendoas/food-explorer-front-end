@@ -7,7 +7,9 @@ export function Theme({children}) {
   return(
     <C.Container>
       <Header/>
-      {children}
+      <C.Content>
+        {children}
+      </C.Content>
       <Footer/>
     </C.Container>
   )

@@ -17,7 +17,9 @@ export function Header() {
 
   return(
     <C.Container>
+      <Link to="/">
       <img src={logo} alt="logo" />
+      </Link>
       {
         show && <div className="overlay"></div> 
       }

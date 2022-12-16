@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  grid-area: content;
-  height: 100%;
-  padding: 3rem 12rem;
-  animation: slideUp 1s ease backwards;
-
-  @media (max-width: 1180px) {
-    padding: 3rem 7rem;
-  }
-`
-
 export const Hero = styled.div`
     width: 100%;
     height: fit-content;

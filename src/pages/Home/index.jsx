@@ -7,7 +7,6 @@ import coffee from "../../assets/coffee.png"
 export function Home() {
   return (
     <Theme>
-      <C.Container>
         <C.Hero>
           <img src={homeImg} alt="" />
           <div className="home-text">
@@ -44,7 +43,6 @@ export function Home() {
           price="49,97"
           />
         </C.Section>
-      </C.Container>
     </Theme>
   )
 }
