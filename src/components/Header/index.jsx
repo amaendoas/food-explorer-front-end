@@ -6,10 +6,14 @@ import { BsSearch, BsReceipt} from "react-icons/bs"
 import { FiLogOut, FiMenu, FiX } from "react-icons/fi"
 import { useAuth } from "../../hooks/auth"
 import { useState } from "react";
+import { useOrder } from "../../hooks/order"
+import { useNavigate } from "react-router-dom"
 
 export function Header() {
   const { signOut } = useAuth();
   const [show, setShow] = useState(false);
+  const { order, setOrder } = useOrder();
+  const navigate = useNavigate();
 
   return(
     <C.Container>
@@ -24,14 +28,14 @@ export function Header() {
         {show ? <FiX/> : <FiMenu/>}
       </button>
       <C.Menu className={`${show ? "show": "hide"}`}>
-        <Link to="/">
+        <Link to="/favs">
           Meus Favoritos
         </Link>
         <C.Search>
           <BsSearch/>
           <input type="text" placeholder="Busque pelas opções de pratos" />
         </C.Search>
-        <Button title="Meus pedidos" icon={BsReceipt}/>
+        <Button title={`Meu pedido (${order})`} icon={BsReceipt} onClick={() => navigate("/order")}/>
         <button className="logout" onClick={signOut}>
           <FiLogOut/>
         </button>

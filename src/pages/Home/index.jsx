@@ -22,6 +22,7 @@ export function Home() {
           title="Expresso"
           description="Café cremoso feito na temperatura e pressões perfeitas"
           price="49,97"
+          dishId="1"
           />
         </C.Section>
         <C.Section>
@@ -31,6 +32,7 @@ export function Home() {
           title="Expresso"
           description="Café cremoso feito na temperatura e pressões perfeitas"
           price="49,97"
+          dishId="2"
           />
         </C.Section>
         <C.Section>
