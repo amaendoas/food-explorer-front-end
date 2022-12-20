@@ -15,6 +15,7 @@ export function FoodItem({img, title, description, price, dishId}) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { cart, setCart, newCart, setCartItems } = useCart();
+  const items = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"));
 
   function plusCount() {
     return setCount(prevState => prevState + 1)
@@ -29,12 +30,17 @@ export function FoodItem({img, title, description, price, dishId}) {
 
   function handleCart() {
     setCart(prevState => prevState + count);
-    const items = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"));
-    const dish = {quant: count, id: dishId}
-    if(items) {
-      items.push(dish)
-      setCartItems(items)
+    let dish = {quant: count, id: dishId}
+
+    for (let index = 0; index < items.length; index++) {
+      if(dish.id === items[index].id ) {
+        const newQuant = items[index].quant + count
+        items.splice(index, 1)
+        dish = { quant: newQuant, id: dish.id}
+      }
     }
+    items.push(dish)
+    setCartItems(items)
     alert('Adicionado ao Carrinho!')
   }
 

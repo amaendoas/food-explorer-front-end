@@ -15,8 +15,10 @@ function CartProvider({children}) {
   }
 
   function cleanCart() {
-    localStorage.removeItem("@foodexplorer: cart", JSON.stringify(cart));
+    localStorage.removeItem("@foodexplorer: cart");
+    localStorage.removeItem("@foodexplorer: cartItems");
     setCart(0)
+    setCartItems([])
   }
 
   useEffect(() => {
@@ -25,6 +27,8 @@ function CartProvider({children}) {
 
     if (userCart) {
       setCart(userCart)
+    }
+    if(userCartItems) {
       setCartItems(userCartItems)
     }
   }, [cart])
