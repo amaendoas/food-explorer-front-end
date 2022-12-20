@@ -6,13 +6,13 @@ import { BsSearch, BsReceipt} from "react-icons/bs"
 import { FiLogOut, FiMenu, FiX } from "react-icons/fi"
 import { useAuth } from "../../hooks/auth"
 import { useState } from "react";
-import { useOrder } from "../../hooks/order"
+import { useCart } from "../../hooks/cart"
 import { useNavigate } from "react-router-dom"
 
 export function Header() {
   const { signOut } = useAuth();
   const [show, setShow] = useState(false);
-  const { order, setOrder } = useOrder();
+  const { cart } = useCart();
   const navigate = useNavigate();
 
   return(
@@ -37,7 +37,7 @@ export function Header() {
           <BsSearch/>
           <input type="text" placeholder="Busque pelas opções de pratos" />
         </C.Search>
-        <Button title={`Meu pedido (${order})`} icon={BsReceipt} onClick={() => navigate("/order")}/>
+        <Button title={`Meu pedido (${cart})`} icon={BsReceipt} onClick={() => navigate("/order")}/>
         <button className="logout" onClick={signOut}>
           <FiLogOut/>
         </button>

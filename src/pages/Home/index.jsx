@@ -2,7 +2,6 @@ import * as C from "./styles";
 import { Theme } from "../../components/Theme";
 import homeImg from "../../assets/home-img.svg";
 import { FoodItem } from "../../components/FoodItem";
-import coffee from "../../assets/coffee.png";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 

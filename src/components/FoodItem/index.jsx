@@ -5,7 +5,7 @@ import { TbEdit } from "react-icons/tb";
 import { Button } from "../Button";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/auth";
-import { useOrder } from "../../hooks/order";
+import { useCart } from "../../hooks/cart";
 import { useNavigate } from "react-router-dom";
 import foodImg from "../../assets/food-default.svg"
 
@@ -14,7 +14,7 @@ export function FoodItem({img, title, description, price, dishId}) {
   const [fav, setFav] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { setOrder, newOrder } = useOrder();
+  const { cart, setCart, newCart, setCartItems } = useCart();
 
   function plusCount() {
     return setCount(prevState => prevState + 1)
@@ -27,10 +27,20 @@ export function FoodItem({img, title, description, price, dishId}) {
     return setCount(prevState => prevState - 1)
   }
 
+  function handleCart() {
+    setCart(prevState => prevState + count);
+    const items = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"));
+    const dish = {quant: count, id: dishId}
+    if(items) {
+      items.push(dish)
+      setCartItems(items)
+    }
+    alert('Adicionado ao Carrinho!')
+  }
+
   useEffect(() => {
-    const favList = Array.from(user)
-    console.log(user)
-  }, [user])
+    newCart()
+  }, [cart])
   
   
   return (
@@ -55,10 +65,7 @@ export function FoodItem({img, title, description, price, dishId}) {
           count >= 10 ? count : '0' + count
         }</span>
         <button onClick={plusCount}><AiOutlinePlus/></button>
-      <Button title="Incluir" onClick={() => {
-        setOrder(prevState => prevState + count)
-        newOrder()
-        }}/>
+      <Button title="Incluir" onClick={handleCart}/>
       </C.Count>
     </C.Container>
   )

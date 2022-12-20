@@ -1,21 +1,17 @@
 import { useState, useEffect } from "react";
 import { createContext, useContext } from "react";
+import { api } from "../services/api";
 
 export const OrderContext = createContext({});
 
 function OrderProvider({children}) {
   const [order, setOrder] = useState(0);
 
-  function newOrder(){
-    localStorage.setItem("@foodexplorer: order", JSON.stringify(order));
+  function newOrder() {
+
   }
 
   useEffect(() => {
-    const userOrder = JSON.parse(localStorage.getItem("@foodexplorer: order"));
-
-    if (userOrder) {
-      setOrder(userOrder)
-    }
   }, [])
 
   return (
