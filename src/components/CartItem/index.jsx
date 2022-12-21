@@ -10,10 +10,8 @@ export function CartItem({img, quant, name, price, id}) {
     for (let index = 0; index < cartItems.length; index++) {
       if(cartItems[index].dish.id === id) {
         const newQuantCart = Number(cart) - Number(cartItems[index].quant) 
-        console.log(newQuantCart)
         setCart(newQuantCart)
         cartItems.splice(index, 1)
-        // console.log(cartItems)
       }
     }
   }
@@ -26,7 +24,7 @@ export function CartItem({img, quant, name, price, id}) {
       <img src={img ? img : defaultImg} alt="" />
       <C.Content>
         <p>
-          <span>{quant}</span> x <span>{name}</span> <span>R${price}</span>
+          <span>{quant}</span> x <span>{name}</span> <span>{price}</span>
         </p>
         <button onClick={() => removeCartItem(id)}>Excluir</button>
       </C.Content>

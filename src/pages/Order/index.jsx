@@ -1,19 +1,34 @@
+import * as C from "./styles";
 import { Button } from "../../components/Button";
 import { CartItem } from "../../components/CartItem";
 import { Theme } from "../../components/Theme";
-import * as C from "./styles";
-import { api } from "../../services/api";
-import{ useState, useEffect } from "react"
-import { useCart } from "../../hooks/cart"
+import{ useState, useEffect } from "react";
+import { useCart } from "../../hooks/cart";
+import emptyCart from "../../assets/emptyCart.svg"
 
 export function Order() {
   const { cleanCart, cart, cartItems } = useCart();
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
+  const [total, setTotal] = useState([]);
+
+  function totalPriceNumber(price, item) {
+    const newPrice = Number(price.replace(',','.'));
+    return (item.quant * newPrice)
+  }
+
+  function totalCart() {
+    let totalCartItems = 0;
+    cartItems.forEach((item) => {
+      totalCartItems += totalPriceNumber(item.dish.price, item)
+    })
+    setTotal(totalCartItems)
+  }
 
 
   useEffect(() => {
     const getItems = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"))
     setItems(getItems ? getItems : [])
+    totalCart()
   }, [cart, cartItems])
   
   return (
@@ -26,9 +41,12 @@ export function Order() {
           </C.Header>
           <C.Content>
             {
-              items.length === 0 ? <h3>Seu carrinho está vazio</h3> : items.map(item => {
+              items.length === 0 ?
+                <div className="empty-cart">
+                <img src={emptyCart} alt="" /> 
+                </div>: items.map(item => {
                 return (
-                  <CartItem key={item.dish.id} quant={item.quant} name={item.dish.name} price={item.dish.price} id={item.dish.id}/>
+                  <CartItem key={item.dish.id} quant={item.quant} name={item.dish.name} price={(totalPriceNumber(item.dish.price, item)).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} id={item.dish.id}/>
                 )
               }
               )
@@ -36,7 +54,7 @@ export function Order() {
           </C.Content>
 
           <C.Footer>
-            <p>Total: </p> <span>R$</span>
+            <p>Total: </p> <span>{total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} </span>
           </C.Footer>
         </C.Cart>
 

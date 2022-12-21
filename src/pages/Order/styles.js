@@ -21,11 +21,15 @@ justify-content: space-between;
 
 export const Content = styled.div`
   min-height: 20rem;
-
-  h3 {
-    font-size: 1.5rem;
-    color: ${({theme}) => theme.COLORS.GRAY_200};
+  
+  div.empty-cart {
+    display: flex;
+    width: 100%;
+    min-height: 20rem;
+    justify-content: center;
+    align-items: center;
   }
+
 `
 
 export const Footer = styled.div`
