@@ -8,6 +8,7 @@ import { useAuth } from "../../hooks/auth";
 import { useCart } from "../../hooks/cart";
 import { useNavigate } from "react-router-dom";
 import foodImg from "../../assets/food-default.svg"
+import { api } from "../../services/api";
 
 export function FoodItem({img, title, description, price, dishId}) {
   const [count, setCount] = useState(1);
@@ -15,7 +16,9 @@ export function FoodItem({img, title, description, price, dishId}) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { cart, setCart, newCart, setCartItems } = useCart();
+  const [ dish, setDish ] = useState();
   const items = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"));
+
 
   function plusCount() {
     return setCount(prevState => prevState + 1)
@@ -28,24 +31,36 @@ export function FoodItem({img, title, description, price, dishId}) {
     return setCount(prevState => prevState - 1)
   }
 
-  function handleCart() {
-    setCart(prevState => prevState + count);
-    let dish = {quant: count, id: dishId}
-
-    for (let index = 0; index < items.length; index++) {
-      if(dish.id === items[index].id ) {
-        const newQuant = items[index].quant + count
-        items.splice(index, 1)
-        dish = { quant: newQuant, id: dish.id }
+ function handleCart() {
+    try {
+      setCount(1)
+      setCart(prevState => prevState + count);
+        let cartDish = {quant: count, dish}
+        for (let index = 0; index < items.length; index++) {
+          if(cartDish.dish.id === items[index].dish.id ) {
+            const newQuant = items[index].quant + count
+            items.splice(index, 1)
+            cartDish = { quant: newQuant, dish}
+          }
+        }
+        items.push(cartDish)
+        setCartItems(items)
+        alert('Adicionado ao Carrinho!')
+    } catch(error) {
+      if(error.response) {
+        alert(error.response.data.message)
+      } else {
+        console.error(error.message)
       }
     }
-    
-    items.push(dish)
-    setCartItems(items)
-    alert('Adicionado ao Carrinho!')
   }
 
   useEffect(() => {
+    async function getDish() {
+      const { data } = await api.get(`/dishes/${dishId}`)
+      setDish(data)
+    }
+    getDish()
     newCart()
   }, [cart])
   

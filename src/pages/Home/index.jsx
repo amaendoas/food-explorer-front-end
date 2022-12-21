@@ -4,6 +4,7 @@ import homeImg from "../../assets/home-img.svg";
 import { FoodItem } from "../../components/FoodItem";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
+import { useCart } from "../../hooks/cart";
 
 export function Home() {
   const [dishes, setDishes] = useState([]);

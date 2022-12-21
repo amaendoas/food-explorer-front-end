@@ -8,15 +8,13 @@ import { useCart } from "../../hooks/cart"
 
 export function Order() {
   const { cleanCart, cart, cartItems } = useCart();
-  const [ dishes, setDishes] = useState([]);
+  const [items, setItems] = useState([])
+
 
   useEffect(() => {
-    async function getDishes() {
-      const response = await api.get('/dishes')
-      setDishes(response.data)
-    }
-    getDishes()
-  }, [cart])
+    const getItems = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"))
+    setItems(getItems ? getItems : [])
+  }, [cart, cartItems])
   
   return (
     <Theme>
@@ -27,8 +25,14 @@ export function Order() {
             <Button title="Limpar Carrinho" onClick={cleanCart}/>
           </C.Header>
           <C.Content>
-            <h3>Seu carrinho está vazio</h3>
-            {/* <CartItem quant="10" name="Expresso" price="20,50"/> */}
+            {
+              items.length === 0 ? <h3>Seu carrinho está vazio</h3> : items.map(item => {
+                return (
+                  <CartItem quant={item.quant} name={item.dish.name} price={item.dish.price}/>
+                )
+              }
+              )
+            }
           </C.Content>
 
           <C.Footer>
