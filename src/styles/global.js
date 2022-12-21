@@ -37,6 +37,7 @@ export default createGlobalStyle`
 
   button, a, textarea {
     font-family: 'Poppins', sans-serif;
+    color: ${({ theme }) => theme.COLORS.GRAY_200};
   }
 
   button {
@@ -52,12 +53,11 @@ export default createGlobalStyle`
 
   a {
     text-decoration: none;
-    color: ${({ theme }) => theme.COLORS.WHITE};
     font-size: 1.4rem;
   }
 
   a:hover, button:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.2);
   }
 
   @keyframes slideUp {
