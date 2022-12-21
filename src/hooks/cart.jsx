@@ -8,7 +8,6 @@ function CartProvider({children}) {
 
   const [cart, setCart] = useState(0);
   const [cartItems, setCartItems] = useState([]);
-  const [dishes, setDishes] = useState([]);
 
   function newCart() {
     localStorage.setItem("@foodexplorer: cart", JSON.stringify(cart));
@@ -22,11 +21,6 @@ function CartProvider({children}) {
     setCartItems([])
   }
 
-  async function getDishes() {
-    const response = await api.get('/dishes')
-    setDishes(response.data)
-  }
-
   useEffect(() => {
     const userCart = JSON.parse(localStorage.getItem("@foodexplorer: cart"));
     const userCartItems = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"));
@@ -38,12 +32,11 @@ function CartProvider({children}) {
     if(userCartItems) {
       setCartItems(userCartItems)
     }
-    
-    getDishes()
+
   }, [cart])
 
   return (
-    <CartContext.Provider value={{cart, setCart, newCart, cleanCart, cartItems, setCartItems, getDishes, dishes}}>
+    <CartContext.Provider value={{cart, setCart, newCart, cleanCart, cartItems, setCartItems}}>
       {children}
     </CartContext.Provider>
   )

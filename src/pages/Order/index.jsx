@@ -28,7 +28,7 @@ export function Order() {
             {
               items.length === 0 ? <h3>Seu carrinho está vazio</h3> : items.map(item => {
                 return (
-                  <CartItem quant={item.quant} name={item.dish.name} price={item.dish.price}/>
+                  <CartItem key={item.dish.id} quant={item.quant} name={item.dish.name} price={item.dish.price} id={item.dish.id}/>
                 )
               }
               )
