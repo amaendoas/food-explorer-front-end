@@ -15,6 +15,11 @@ export function Header() {
   const { cart } = useCart();
   const navigate = useNavigate();
 
+  function userSignOut() {
+    navigate('/')
+    signOut()
+  }
+
   return(
     <C.Container>
       <Link to="/">
@@ -38,7 +43,7 @@ export function Header() {
           <input type="text" placeholder="Busque pelas opções de pratos" />
         </C.Search>
         <Button title={`Meu pedido (${cart})`} icon={BsReceipt} onClick={() => navigate("/order")}/>
-        <button className="logout" onClick={signOut}>
+        <button className="logout" onClick={userSignOut}>
           <FiLogOut/>
         </button>
       </C.Menu>

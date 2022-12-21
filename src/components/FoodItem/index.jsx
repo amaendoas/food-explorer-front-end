@@ -36,9 +36,10 @@ export function FoodItem({img, title, description, price, dishId}) {
       if(dish.id === items[index].id ) {
         const newQuant = items[index].quant + count
         items.splice(index, 1)
-        dish = { quant: newQuant, id: dish.id}
+        dish = { quant: newQuant, id: dish.id }
       }
     }
+    
     items.push(dish)
     setCartItems(items)
     alert('Adicionado ao Carrinho!')
