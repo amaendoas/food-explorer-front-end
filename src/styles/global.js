@@ -32,7 +32,7 @@ export default createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
     font-family: 'Poppins', sans-serif;
-    color: ${({ theme }) => theme.COLORS.WHITE};
+    color: ${({ theme }) => theme.COLORS.GRAY_200};
   }
 
   button, a, textarea {
@@ -59,6 +59,20 @@ export default createGlobalStyle`
   a:hover, button:hover {
     filter: brightness(1.2);
   }
+
+  button:disabled {
+    filter: brightness(0.3);
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 
   @keyframes slideUp {
     0% {

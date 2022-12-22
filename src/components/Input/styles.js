@@ -5,13 +5,13 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     color: ${({theme}) => theme.COLORS.GRAY_200};
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     gap: 8px;
 
     input {
       border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
-      padding: 1.6rem 1.4rem;
-      width: 35rem;
+      padding: 1rem 1rem;
+      width: 100%;
       border-radius: 5px;
       color: ${({theme}) => theme.COLORS.GRAY_200};
       font-size: 1.5rem;

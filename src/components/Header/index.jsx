@@ -3,11 +3,12 @@ import logo from "../../assets/logo.svg"
 import { Link } from "react-router-dom"
 import { Button } from "../Button"
 import { BsSearch, BsReceipt} from "react-icons/bs"
-import { FiLogOut, FiMenu, FiX } from "react-icons/fi"
+import {MdOutlineLogout, MdOutlineMenu, MdClear} from "react-icons/md"
 import { useAuth } from "../../hooks/auth"
 import { useState } from "react";
 import { useCart } from "../../hooks/cart"
 import { useNavigate } from "react-router-dom"
+import { CartIcon } from "../CartIcon"
 
 export function Header() {
   const { signOut } = useAuth();
@@ -32,7 +33,7 @@ export function Header() {
         setShow(!show)
         document.body.classList.toggle('suppress-scroll')
         }}>
-        {show ? <FiX/> : <FiMenu/>}
+        {show ? <MdClear/> : <MdOutlineMenu/>}
       </button>
       <C.Menu className={`${show ? "show": "hide"}`}>
         <Link to="/favs">
@@ -42,9 +43,10 @@ export function Header() {
           <BsSearch/>
           <input type="text" placeholder="Busque pelas opções de pratos" />
         </C.Search>
-        <Button title={`Meu pedido (${cart})`} icon={BsReceipt} onClick={() => navigate("/order")}/>
+        <CartIcon quant={cart} onClick={() => navigate("/cart")}/>
+        <Button title="Meus pedidos" icon={BsReceipt} onClick={() => navigate('/myorders')}/>
         <button className="logout" onClick={userSignOut}>
-          <FiLogOut/>
+          <MdOutlineLogout/>
         </button>
       </C.Menu>
     </C.Container>

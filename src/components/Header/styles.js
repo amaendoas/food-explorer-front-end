@@ -11,13 +11,9 @@ export const Container = styled.div`
   gap: 2rem;
 
   svg {
-    font-size: 2.2rem;
-    color: ${({ theme }) => theme.COLORS.WHITE};
-    cursor: pointer;
-  }
-
-  svg:hover {
+    font-size: 2.7rem;
     color:  ${({ theme }) => theme.COLORS.GRAY_200};
+    cursor: pointer;
   }
 
   .button-menu {
@@ -96,16 +92,18 @@ export const Search = styled.div`
   input {
     background: transparent;
     border: none;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     width: 100%;
     outline: none;
     color: ${({ theme }) => theme.COLORS.GRAY_200};
   }
+
   svg {
     font-size: 1.5rem;
     color: ${({ theme }) => theme.COLORS.GRAY_200};
   }
-  padding: 1.5rem 1.6rem;
+
+  padding: 1rem 1rem;
   min-width: 50%;
   border-radius: 5px;
   display: flex;
