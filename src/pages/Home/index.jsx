@@ -4,10 +4,9 @@ import homeImg from "../../assets/home-img.svg";
 import { FoodItem } from "../../components/FoodItem";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
-import { useCart } from "../../hooks/cart";
 
 export function Home() {
-  const [dishes, setDishes] = useState([]);
+  const [dishes, setDishes] = useState([])
 
   function filterDishes(category) {
     return dishes.filter((item) => item.category === category)
@@ -15,8 +14,12 @@ export function Home() {
   
   useEffect(() => {
     async function getDishes() {
-      const response = await api.get('/dishes')
-      setDishes(response.data)
+      try {
+        const response = await api.get('/dishes')
+        setDishes(response.data)
+      } catch(error) {
+        console.error(error.message)
+      }
     }
     getDishes()
   }, [dishes])

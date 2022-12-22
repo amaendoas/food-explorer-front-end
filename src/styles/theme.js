@@ -9,6 +9,7 @@ export default {
     GRAY_200: "#C4C4C4",
 
     PRIMARY: "#82F3FF",
+    SECONDARY: "#065E7C",
 
     RED: "#92000E",
     ORANGE: "#FBA94C",

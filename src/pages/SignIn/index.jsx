@@ -5,12 +5,13 @@ import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
+import { Loading } from "../../components/Loading";
 
 export function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn } = useAuth();
+  const { signIn, showLoading } = useAuth();
 
   function handleSignIn() {
     signIn({ email, password })
@@ -41,6 +42,10 @@ export function SignIn() {
         Criar uma conta
       </Link>
       </C.Content>
+      {
+        showLoading &&
+        <Loading />
+      }
     </C.Container>
   )
 };
