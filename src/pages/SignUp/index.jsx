@@ -43,29 +43,31 @@ export function SignUp() {
         <img src={logo} alt="logo" />
       </C.Logo>
       <C.Content>
-        <h1>Crie sua conta</h1>
-        <Input
-        title="Nome"
-        placeholder="Exemplo: Maria da Silva"
-        type="text"
-        onChange={e => setName(e.target.value)}
-        />
-        <Input
-        title="Email"
-        placeholder="Exemplo: exemplo@exemplo.com.br"
-        type="email"
-        onChange={e => setEmail(e.target.value)}
-        />
-        <Input
-        title="Senha"
-        placeholder="Mínimo 6 caracteres"
-        type="password"
-        onChange={e => setPassword(e.target.value)}
-        />
-      <Button title="Criar Conta" onClick={handleSignUp}/>
-      <Link to="/">
-        Já tenho uma conta
-      </Link>
+        <C.SignUp>
+          <h1>Crie sua conta</h1>
+          <Input
+          title="Nome"
+          placeholder="Exemplo: Maria da Silva"
+          type="text"
+          onChange={e => setName(e.target.value)}
+          />
+          <Input
+          title="Email"
+          placeholder="Exemplo: exemplo@exemplo.com.br"
+          type="email"
+          onChange={e => setEmail(e.target.value)}
+          />
+          <Input
+          title="Senha"
+          placeholder="Mínimo 6 caracteres"
+          type="password"
+          onChange={e => setPassword(e.target.value)}
+          />
+        <Button title="Criar Conta" onClick={handleSignUp}/>
+        <Link to="/">
+          Já tenho uma conta
+        </Link>
+        </C.SignUp>
       </C.Content>
     </C.Container>
   )

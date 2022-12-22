@@ -24,6 +24,7 @@ export function SignIn() {
         <img src={logo} alt="logo" />
       </C.Logo>
       <C.Content>
+        <C.Login>
         <h1>Faça seu login</h1>
         <Input
         title="Email"
@@ -41,6 +42,7 @@ export function SignIn() {
       <Link to="/signup">
         Criar uma conta
       </Link>
+        </C.Login>
       </C.Content>
       {
         showLoading &&

@@ -40,6 +40,7 @@ export function Cart() {
   function newOrder() {
     setShowLoading(true)
     setTimeout(() => {
+      setPayment('finished')
       setIsfinished(true)
       setCart(0)
       setCartItems([])
@@ -97,7 +98,7 @@ export function Cart() {
               </button>
             </div>
             <div className="content-payment">
-              <div className={payment === 'waiting' && !isFinished ? 'waiting content': 'hide'}>
+              <div className={payment === 'waiting' && (!isFinished || cart === 0) ? 'waiting content': 'hide'}>
                 <MdAttachMoney/>
                 <p>Escolha uma forma de pagamento</p>
               </div>

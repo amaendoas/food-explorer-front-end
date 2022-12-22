@@ -37,15 +37,29 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 3.2rem;
   animation: slideUp 1s ease backwards;
-  
+  `
+
+export const Login = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  background-color: ${({theme}) => theme.COLORS.BACKGROUND_800};
+  padding: 4rem;
+  border-radius: 10px;
+
   h1 {
     font-weight: 500;
     font-size: 3rem;
+    text-align: center;
   }
-
+  
   button {
     width: 35rem;
+  }
+
+  a {
+
+    text-align: center;
   }
 `
