@@ -70,7 +70,7 @@ export function Cart() {
                 <div className="content">
                 <MdRemoveShoppingCart/>
                 <p>Seu Carrinho está vazio</p>
-                <Button title="Adicione items"/>
+                <Button title="Adicione items" onClick={() => navigate("/")}/>
                 </div>
                 :
                 items.map(item => {
