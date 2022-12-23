@@ -4,9 +4,11 @@ import homeImg from "../../assets/home-img.svg";
 import { FoodItem } from "../../components/FoodItem";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../contexts/auth";
 
 export function Home() {
-  const [dishes, setDishes] = useState([])
+  const [dishes, setDishes] = useState([]);
+  const { user } = useAuth();
 
   function filterDishes(category) {
     return dishes.filter((item) => item.category === category)
@@ -26,6 +28,7 @@ export function Home() {
 
   return (
     <Theme>
+      <h2>Olá, {user.name}</h2>
         <C.Hero>
           <img src={homeImg} alt="" />
           <div className="home-text">

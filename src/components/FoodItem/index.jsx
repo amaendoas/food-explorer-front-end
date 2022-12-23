@@ -2,8 +2,8 @@ import * as C from "./styles";
 import { MdFavoriteBorder, MdFavorite, MdAdd, MdRemove, MdEdit} from "react-icons/md";
 import { Button } from "../Button";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../hooks/auth";
-import { useCart } from "../../hooks/cart";
+import { useAuth } from "../../contexts/auth";
+import { useCart } from "../../contexts/cart";
 import { useNavigate } from "react-router-dom";
 import foodImg from "../../assets/food-default.svg"
 import { api } from "../../services/api";
@@ -16,6 +16,10 @@ export function FoodItem({img, title, description, price, dishId}) {
   const { cart, setCart, newCart, setCartItems } = useCart();
   const [ dish, setDish ] = useState();
   const items = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"));
+
+  function findFav() {
+    
+  }
 
 
   function plusCount() {

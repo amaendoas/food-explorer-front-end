@@ -3,7 +3,7 @@ import logo from "../../assets/logo.svg"
 import { Input } from "../../components/Input"
 import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks/auth";
+import { useAuth } from "../../contexts/auth";
 import { useState } from "react";
 import { Loading } from "../../components/Loading";
 

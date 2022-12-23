@@ -3,7 +3,7 @@ import { Button } from "../../components/Button";
 import { CartItem } from "../../components/CartItem";
 import { Theme } from "../../components/Theme";
 import{ useState, useEffect } from "react";
-import { useCart } from "../../hooks/cart";
+import { useCart } from "../../contexts/cart";
 import pixIcon from "../../assets/pix.svg";
 import creditCardIcon from "../../assets/credit-card.svg";
 import {MdAttachMoney, MdQrCode2, MdRemoveShoppingCart, MdCheckCircleOutline} from "react-icons/md"

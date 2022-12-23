@@ -10,7 +10,7 @@ export const Container = styled.button`
   border-radius: 5px;
   display: flex;
   white-space: nowrap;
-  font-size: calc(0.9rem + 0.4vw);
+  font-size: calc(1rem + 0.2vw);
   align-items: center;
   justify-content: center;
   gap: 5px;

@@ -1,12 +1,14 @@
 import { createContext, useContext, useEffect } from "react";
 import { api } from "../services/api";
 import { useState } from "react";
+import { useCart } from "./cart";
 
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const [ data, setData ] = useState({});
   const [showLoading, setShowLoading] = useState(false);
+  const { setCart, setCartItems } = useCart();
 
   async function signIn({ email, password }) {
     setShowLoading(true)
@@ -34,14 +36,16 @@ function AuthProvider({ children }) {
   }
 
   function signOut() {
+    setData({});
+    setCart(0);
+    setCartItems([]);
     localStorage.removeItem("@foodexplorer: token");
     localStorage.removeItem("@foodexplorer: user");
     localStorage.removeItem("@foodexplorer: cart");
     localStorage.removeItem("@foodexplorer: cartItems");
-    setData({});
   }
 
-  useEffect(() => {
+  function getUser() {
     const token = localStorage.getItem("@foodexplorer: token");
     const user = localStorage.getItem("@foodexplorer: user");
 
@@ -53,6 +57,10 @@ function AuthProvider({ children }) {
         user: JSON.parse(user)
       })
     }
+  }
+
+  useEffect(() => {
+    getUser()
   }, [])
 
   return (

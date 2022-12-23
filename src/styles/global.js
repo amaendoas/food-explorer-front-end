@@ -24,11 +24,11 @@ export default createGlobalStyle`
   }
 
   h1 {
-      font-size: calc(2rem + 1vw);
+      font-size: calc(2rem + 0.8vw);
     }
 
   h2 {
-    font-size: calc(1rem + 0.8vw);
+    font-size: calc(1.2rem + 0.8vw);
   }
 
   h3 {

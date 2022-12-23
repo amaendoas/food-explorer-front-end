@@ -1,7 +1,7 @@
 import * as C from "./styles"
 import defaultImg from "../../assets/food-default.svg"
 import { useEffect } from "react"
-import { useCart } from "../../hooks/cart"
+import { useCart } from "../../contexts/cart"
 
 export function CartItem({img, quant, name, price, id}) {
   const { newCart, cartItems, setCartItems, cart, setCart } = useCart();

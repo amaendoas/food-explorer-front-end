@@ -5,7 +5,7 @@ export function Favs() {
   return (
       <Theme>
         <C.Container>
-          <h1>Favoritos</h1>
+          <h2>Favoritos</h2>
         </C.Container>
       </Theme>
   )

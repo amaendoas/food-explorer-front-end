@@ -4,9 +4,9 @@ import { Link } from "react-router-dom"
 import { Button } from "../Button"
 import { BsSearch, BsReceipt} from "react-icons/bs"
 import {MdOutlineLogout, MdOutlineMenu, MdClear} from "react-icons/md"
-import { useAuth } from "../../hooks/auth"
+import { useAuth } from "../../contexts/auth"
 import { useState } from "react";
-import { useCart } from "../../hooks/cart"
+import { useCart } from "../../contexts/cart"
 import { useNavigate } from "react-router-dom"
 import { CartIcon } from "../CartIcon"
 
