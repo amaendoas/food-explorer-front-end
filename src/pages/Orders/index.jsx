@@ -1,7 +1,7 @@
 import { Theme } from "../../components/Theme"
 import * as C from "./styles"
 
-export function MyOrders() {
+export function Orders() {
   return (
     <Theme>
       <C.Container>

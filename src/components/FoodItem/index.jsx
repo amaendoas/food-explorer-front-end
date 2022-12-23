@@ -1,7 +1,5 @@
 import * as C from "./styles";
-import {IoMdHeartEmpty, IoMdHeart} from "react-icons/io";
-import { AiOutlineMinus,AiOutlinePlus} from "react-icons/ai";
-import { TbEdit } from "react-icons/tb";
+import { MdFavoriteBorder, MdFavorite, MdAdd, MdRemove, MdEdit} from "react-icons/md";
 import { Button } from "../Button";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/auth";
@@ -70,10 +68,10 @@ export function FoodItem({img, title, description, price, dishId}) {
       {
          user.isAdmin ? 
          <button className="edit-btn" onClick={() => navigate("/edit")}>
-           <TbEdit/>
+           <MdEdit/>
          </button> : <button onClick={() => setFav(!fav)} className="fav-btn">
         {
-          fav ? <IoMdHeart className="red-heart"/> : <IoMdHeartEmpty/>
+          fav ? <MdFavorite className="red-heart"/> : <MdFavoriteBorder/>
         }
       </button>
       }
@@ -82,11 +80,11 @@ export function FoodItem({img, title, description, price, dishId}) {
       <p className="description">{description}</p>
       <p className="price">R$ {price}</p>
       <C.Count>
-        <button onClick={minusCount}><AiOutlineMinus/></button>
+        <button onClick={minusCount}><MdRemove/></button>
         <span>{
           count >= 10 ? count : '0' + count
         }</span>
-        <button onClick={plusCount}><AiOutlinePlus/></button>
+        <button onClick={plusCount}><MdAdd/></button>
       <Button title="Incluir" onClick={handleCart}/>
       </C.Count>
     </C.Container>

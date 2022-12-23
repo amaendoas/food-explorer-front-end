@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom"
 import { CartIcon } from "../CartIcon"
 
 export function Header() {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const [show, setShow] = useState(false);
   const { cart } = useCart();
   const navigate = useNavigate();
@@ -36,15 +36,18 @@ export function Header() {
         {show ? <MdClear/> : <MdOutlineMenu/>}
       </button>
       <C.Menu className={`${show ? "show": "hide"}`}>
-        <Link to="/favs">
-          Meus Favoritos
-        </Link>
+        {
+          !user.isAdmin && <Link to="/favs">Meus Favoritos</Link>
+        }
         <C.Search>
           <BsSearch/>
           <input type="text" placeholder="Busque pelas opções de pratos" />
         </C.Search>
-        <CartIcon quant={cart} onClick={() => navigate("/cart")}/>
-        <Button title="Meus pedidos" icon={BsReceipt} onClick={() => navigate('/myorders')}/>
+        {
+          !user.isAdmin &&
+          <CartIcon quant={cart} onClick={() => navigate("/cart")}/>
+        }
+        <Button title={user.isAdmin ? "Pedidos" : "Meus pedidos"} icon={BsReceipt} onClick={() => navigate('/orders')}/>
         <button className="logout" onClick={userSignOut}>
           <MdOutlineLogout/>
         </button>
