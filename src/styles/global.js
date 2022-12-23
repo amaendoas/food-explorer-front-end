@@ -23,6 +23,18 @@ export default createGlobalStyle`
     font-weight: 500;
   }
 
+  h1 {
+      font-size: calc(2rem + 1vw);
+    }
+
+  h2 {
+    font-size: calc(1rem + 0.8vw);
+  }
+
+  h3 {
+    font-size: calc(1rem + 0.5vw);
+  }
+
   * {
     margin: 0;
     padding: 0;

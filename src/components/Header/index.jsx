@@ -27,7 +27,7 @@ export function Header() {
       <img src={logo} alt="logo" />
       </Link>
       {
-        show && <div className="overlay"></div> 
+        show && <div className="overlay" onClick={() => {setShow(!show)}}></div> 
       }
       <button className="button-menu" onClick={() => {
         setShow(!show)

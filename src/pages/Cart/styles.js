@@ -3,14 +3,21 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
-  height: 100%;
+  height: inherit;
   grid-template-areas: "cart payment";
 
-  h2 {
-    font-size: 2.5rem;
-    font-weight:500;
+  p {
+    font-size: calc(0.8rem + 0.8vw);
+    text-align: center;
   }
 
+  .hide {
+      display: none;
+    }
+  
+  .show {
+    display: block;
+  }
 
   .content {
     display: flex;
@@ -19,19 +26,23 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.8rem;
     gap: 1rem;
     color: ${({theme}) => theme.COLORS.GRAY_300};
 
     svg {
-      font-size: 8rem;
+      font-size: calc(2rem + 4vw);
     }
+  }
+
+  @media (max-width: 800px){
+    grid-template-columns: 100%;
+    grid-template-areas: "all";
   }
 `
 
 export const Cart = styled.div`
   grid-area: cart;
-  padding-right: 5rem;
+  padding-right: calc(1rem + 2vw);
   height: 100%;
 
   .cart-header {
@@ -46,18 +57,44 @@ export const Cart = styled.div`
   }
 
   .cart-footer {
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
-  gap: 1rem;
-  margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    button {
+      display: none;
+    }
+
+    span {
+      font-weight: 600;
+    }
+
+    @media (max-width: 800px){
+      justify-content: space-between;
+
+      button {
+        display: block;
+      }
+    }
+  }
+
+  @media (max-width: 800px) {
+    padding-right: 0;
+    grid-area: all;
   }
 `
 
 export const Payment = styled.div`
-  padding-left: 5rem;
+  padding-left: calc(1rem + 2vw);
   grid-area: payment;
   height: calc(30rem + 30vh);
+
+  form {
+    width: 100%;
+    padding: 0 calc(2rem + 2vw);
+  }
 
   h2 {
     margin-bottom: 2rem;
@@ -94,15 +131,11 @@ export const Payment = styled.div`
   .content-payment {
     height: 80%;
 
-    .hide {
-      display: none;
-    }
-
     .waiting, .pix, .credit, .approved {
       height: 100%;
 
       svg {
-        font-size: 10rem;
+        font-size: calc(3rem + 4vw);
       }
     }
 
@@ -117,6 +150,21 @@ export const Payment = styled.div`
          display: flex;
          gap: 1rem;
       }
+    }
+  }
+
+  .btn-back-cart {
+    margin-top: 1.2rem;
+    display: none;
+  }
+
+  @media (max-width: 800px){
+    grid-area: all;
+    padding-left: 0;
+    display: none;
+
+    .btn-back-cart {
+      display: block;
     }
   }
 `

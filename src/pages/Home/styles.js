@@ -31,11 +31,6 @@ export const Hero = styled.div`
       border-radius: 8px;
     }
 
-    h1 {
-      font-size: calc(1rem + 2vw);
-      font-weight: 500;
-    }
-
     p {
       font-size: calc(0.5rem + 1vw);
     }

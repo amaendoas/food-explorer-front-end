@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
 export const Container = styled.button`
-  height: 4rem;
+  height: calc(3rem + 0.7vw);
   width: fit-content;
-  padding: 0 2.5rem;
+  padding: 0 calc(0.8rem + 0.2vw);
   background-color: ${({theme}) => theme.COLORS.RED};
   font-weight: 500;
   color: ${({theme}) => theme.COLORS.WHITE};
   border-radius: 5px;
   display: flex;
+  white-space: nowrap;
+  font-size: calc(0.9rem + 0.4vw);
   align-items: center;
   justify-content: center;
   gap: 5px;
+
+  svg {
+    font-size: calc(1.2rem + 0.4vw);
+  }
 `

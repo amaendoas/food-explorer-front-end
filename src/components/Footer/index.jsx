@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <C.Container>
       <img src={logo} alt="logo" />
-      <p>&copy; 2022 - Todos os direitos reservados.</p>
+      <p>&copy; 2022 <wbr/>Todos os direitos reservados.</p>
     </C.Container>
   )
 }

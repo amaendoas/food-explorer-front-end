@@ -19,6 +19,7 @@ export function Cart() {
   const [total, setTotal] = useState([]);
   const [payment, setPayment] = useState('waiting');
   const [isFinished, setIsfinished] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
 
   function totalPriceNumber(price, item) {
     const newPrice = Number(price.replace(',','.'));
@@ -58,7 +59,7 @@ export function Cart() {
   return (
     <Theme>
       <C.Container>
-        <C.Cart>
+        <C.Cart className={showPayment && 'hide'}>
           <div className="cart-header">
             <h2>Meu carrinho</h2>
             <Button title="Limpar Carrinho" onClick={cleanCart} disabled={isFinished || cart === 0 && 'disabled'}/>
@@ -69,6 +70,7 @@ export function Cart() {
                 <div className="content">
                 <MdRemoveShoppingCart/>
                 <p>Seu Carrinho está vazio</p>
+                <Button title="Adicione items"/>
                 </div>
                 :
                 items.map(item => {
@@ -80,21 +82,24 @@ export function Cart() {
             }
           </div>
           <div className="cart-footer">
-            <p>Total: </p> <span>{total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} </span>
+            <p>Total: <span>{total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} </span></p>
+            <Button title="Ir para pagamento" onClick={() => {
+              setShowPayment(!showPayment)
+            }} disabled={cart === 0 && 'disabled'}/>
           </div>
         </C.Cart>
 
-        <C.Payment>
+        <C.Payment className={showPayment && 'show'}>
           <h2>Pagamento</h2>
           <div className="container-payment">
             <div className="header-payment">
               <button className={payment === 'pix' && cart !== 0 ? 'title-payment selected': 'title-payment'} onClick={() => choosePayment('pix')} disabled={cart === 0 ? true : false}>
               <img src={pixIcon} alt="pix-icon" />
-              <p>PIX</p>
+              <h3>PIX</h3>
               </button>
               <button className={payment === 'credit' && cart !== 0 ? 'title-payment selected': 'title-payment'} onClick={() => choosePayment('credit')} disabled={cart === 0 ? true : false}>
               <img src={creditCardIcon} alt="credit-card-icon" />
-              <p>Crédito</p>
+              <h3>Crédito</h3>
               </button>
             </div>
             <div className="content-payment">
@@ -125,6 +130,7 @@ export function Cart() {
                 {showLoading && <Loading/>}
             </div>
           </div>
+          <Button title="Voltar para o carrinho" className="btn-back-cart" onClick={() => setShowPayment(!showPayment)}/>
         </C.Payment>
       </C.Container>
     </Theme>

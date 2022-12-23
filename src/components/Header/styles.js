@@ -3,12 +3,16 @@ import styled from "styled-components";
 export const Container = styled.div`
   grid-area: header;
   background-color:  ${({ theme }) => theme.COLORS.BACKGROUND_800};
-  height: 7rem;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 12rem;
-  gap: 2rem;
+  gap: 3rem;
+
+  img {
+    width: calc(12rem + 4vw);
+  }
 
   svg {
     font-size: 2.7rem;
@@ -47,17 +51,22 @@ export const Container = styled.div`
         z-index: 6;
       }
     }
+
+  @media (max-width: 800px) {
+    padding: 0 3rem;
+  }
 `
 
 export const Menu = styled.nav`
   display: flex;
   align-items: center;
-  justify-content: end;
-  gap: 2rem;
+  justify-content: center;
   width: 100%;
+  gap: 3rem;
 
   a {
     font-size: 1.5rem;
+    white-space: nowrap;
   }
 
   a:hover {
@@ -104,7 +113,7 @@ export const Search = styled.div`
   }
 
   padding: 1rem 1rem;
-  min-width: 50%;
+  width: 100%;
   border-radius: 5px;
   display: flex;
   align-items: center;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: grid;
-  grid-template-rows: 7rem minmax(80vh, auto) 7rem;
+  grid-template-rows: 7rem auto 7rem;
   grid-template-areas: "header"
   "content"
   "footer";
@@ -10,7 +10,6 @@ export const Container = styled.div`
 
 export const Content = styled.main`
   grid-area: content;
-  height: 100%;
   padding: 3rem 12rem;
   animation: slideUp 1s ease backwards;
 
