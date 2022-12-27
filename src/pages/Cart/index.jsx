@@ -20,7 +20,7 @@ export function Cart() {
   const [payment, setPayment] = useState('waiting');
   const [isFinished, setIsfinished] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
-
+  
   function totalPriceNumber(price, item) {
     const newPrice = Number(price.replace(',','.'));
     return (item.quant * newPrice)
@@ -130,7 +130,10 @@ export function Cart() {
                 {showLoading && <Loading/>}
             </div>
           </div>
-          <Button title="Voltar para o carrinho" className="btn-back-cart" onClick={() => setShowPayment(!showPayment)}/>
+          <Button title="Voltar para o carrinho" className="btn-back-cart" onClick={() => {
+
+            setShowPayment(!showPayment)
+            }}/>
         </C.Payment>
       </C.Container>
     </Theme>

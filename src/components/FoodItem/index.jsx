@@ -7,20 +7,20 @@ import { useCart } from "../../contexts/cart";
 import { useNavigate } from "react-router-dom";
 import foodImg from "../../assets/food-default.svg"
 import { api } from "../../services/api";
+import { useFavs } from "../../contexts/favs";
 
 export function FoodItem({img, title, description, price, dishId}) {
   const [count, setCount] = useState(1);
   const [fav, setFav] = useState(false);
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const { cart, setCart, newCart, setCartItems } = useCart();
   const [ dish, setDish ] = useState();
+
+  const { user } = useAuth();
+  const { favsList, setFavsList, newFavsList} = useFavs();
+  const { cart, setCart, newCart, setCartItems } = useCart();
+  
+  const navigate = useNavigate();
+  
   const items = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"));
-
-  function findFav() {
-    
-  }
-
 
   function plusCount() {
     return setCount(prevState => prevState + 1)
@@ -31,6 +31,24 @@ export function FoodItem({img, title, description, price, dishId}) {
       return
     }
     return setCount(prevState => prevState - 1)
+  }
+
+  function setDishFav() {
+    api.post('/favorites', { dish_id: dishId })
+    .then((res) => setFavsList(prevState => [...prevState, ...res.data]))
+  }
+
+  function removeDishFav() {
+    api.delete(`/favorites/${dishId}`)
+    .then((res) => setFavsList(res.data))
+  }
+
+  function isDishFav() {
+    for (let index = 0; index < favsList.length; index++) {
+      if(favsList[index].dish_id === dishId){
+        setFav(true)
+      }
+    }
   }
 
  function handleCart() {
@@ -57,23 +75,34 @@ export function FoodItem({img, title, description, price, dishId}) {
     }
   }
 
+  async function getDish() {
+    const { data } = await api.get(`/dishes/${dishId}`)
+    setDish(data)
+  }
+
   useEffect(() => {
-    async function getDish() {
-      const { data } = await api.get(`/dishes/${dishId}`)
-      setDish(data)
-    }
     getDish()
+    newFavsList(user.id)
     newCart()
-  }, [cart])
+    isDishFav()
+  }, [cart, favsList])
   
   
   return (
-    <C.Container id={`d${dishId}`}>
+    <C.Container>
       {
          user.isAdmin ? 
          <button className="edit-btn" onClick={() => navigate("/edit")}>
            <MdEdit/>
-         </button> : <button onClick={() => setFav(!fav)} className="fav-btn">
+         </button> : <button onClick={() => {
+          if(fav) {
+            setFav(false)
+            removeDishFav()
+          } else {
+            setFav(true)
+            setDishFav()
+          }
+         }} className="fav-btn">
         {
           fav ? <MdFavorite className="red-heart"/> : <MdFavoriteBorder/>
         }
@@ -89,7 +118,7 @@ export function FoodItem({img, title, description, price, dishId}) {
           count >= 10 ? count : '0' + count
         }</span>
         <button onClick={plusCount}><MdAdd/></button>
-      <Button title="Incluir" onClick={handleCart}/>
+      <Button title="Incluir" onClick={handleCart} disabled={user.isAdmin ? 'disabled' : false}/>
       </C.Count>
     </C.Container>
   )

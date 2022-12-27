@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
-  height: inherit;
+  height: 100%;
   grid-template-areas: "cart payment";
 
   p {
@@ -22,7 +22,7 @@ export const Container = styled.div`
   .content {
     display: flex;
     width: 100%;
-    min-height: inherit;
+    min-height: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -41,6 +41,7 @@ export const Container = styled.div`
 `
 
 export const Cart = styled.div`
+  display: block;
   grid-area: cart;
   padding-right: calc(1rem + 2vw);
   height: 100%;
@@ -49,11 +50,13 @@ export const Cart = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 10%;
   }
 
   .cart-content {
     min-height: calc(20rem + 20vh);
     overflow-y: auto;
+    height: 80%;
   }
 
   .cart-footer {
@@ -62,6 +65,7 @@ export const Cart = styled.div`
     font-size: 2rem;
     gap: 1rem;
     margin-bottom: 2rem;
+    height: 10%;
 
     button {
       display: none;
@@ -89,7 +93,7 @@ export const Cart = styled.div`
 export const Payment = styled.div`
   padding-left: calc(1rem + 2vw);
   grid-area: payment;
-  height: calc(30rem + 30vh);
+  height: 100%;
 
   form {
     width: 100%;
@@ -97,13 +101,13 @@ export const Payment = styled.div`
   }
 
   h2 {
-    margin-bottom: 2rem;
+    height: 10%;
   }
 
   .container-payment {
     position: relative;
     width: 100%;
-    height: 70%;
+    height: 80%;
     border: 1px solid ${({theme}) => theme.COLORS.BACKGROUND_700};
   }
 

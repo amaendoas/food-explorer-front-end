@@ -1,12 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-
   :root {
     font-size: 62.5%;
   }
-
+  
   #root {
+    height: 100vh;
     animation: slideUp 1s ease backwards;
   }
 
@@ -45,6 +45,7 @@ export default createGlobalStyle`
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
     font-family: 'Poppins', sans-serif;
     color: ${({ theme }) => theme.COLORS.GRAY_200};
+    height: 100vh;
   }
 
   button, a, textarea {

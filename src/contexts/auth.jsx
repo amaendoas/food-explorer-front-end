@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect } from "react";
 import { api } from "../services/api";
 import { useState } from "react";
 import { useCart } from "./cart";
+import { useFavs } from "./favs";
 
 export const AuthContext = createContext({});
 
@@ -9,6 +10,7 @@ function AuthProvider({ children }) {
   const [ data, setData ] = useState({});
   const [showLoading, setShowLoading] = useState(false);
   const { setCart, setCartItems } = useCart();
+  const { setFavsList } = useFavs();
 
   async function signIn({ email, password }) {
     setShowLoading(true)
@@ -39,10 +41,12 @@ function AuthProvider({ children }) {
     setData({});
     setCart(0);
     setCartItems([]);
+    setFavsList([]);
     localStorage.removeItem("@foodexplorer: token");
     localStorage.removeItem("@foodexplorer: user");
     localStorage.removeItem("@foodexplorer: cart");
     localStorage.removeItem("@foodexplorer: cartItems");
+    localStorage.removeItem("@foodexplorer: favs");
   }
 
   function getUser() {

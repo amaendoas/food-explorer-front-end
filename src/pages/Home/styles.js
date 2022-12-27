@@ -48,5 +48,7 @@ export const Section = styled.section`
     font-size: 3rem;
     margin-bottom: 4rem;
   }
-
+  .carrousel {
+    display: flex;
+  }
 `

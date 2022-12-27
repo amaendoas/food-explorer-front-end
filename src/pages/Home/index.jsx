@@ -5,10 +5,12 @@ import { FoodItem } from "../../components/FoodItem";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
+import { useFavs } from "../../contexts/favs";
+import { Loading } from "../../components/Loading"
 
 export function Home() {
   const [dishes, setDishes] = useState([]);
-  const { user } = useAuth();
+  const { user, showLoading } = useAuth();
 
   function filterDishes(category) {
     return dishes.filter((item) => item.category === category)
@@ -38,6 +40,7 @@ export function Home() {
         </C.Hero>
         <C.Section>
           <h1>Pratos principais</h1>
+          <div className="carrousel">
           {
             filterDishes('main').length === 0 ? <p className="default-msg">Nenhum prato principal cadastrado.</p> :filterDishes('main').map(dish => 
               (
@@ -50,11 +53,13 @@ export function Home() {
                 dishId={dish.id}
                 />
               )
-            )
-          }
+              )
+            }
+          </div>
         </C.Section>
         <C.Section>
           <h1>Sobremesas</h1>
+          <div className="carrousel">
           {
             filterDishes('dessert').length === 0 ? <p className="default-msg">Nenhuma sobremesa cadastrada.</p> :filterDishes('dessert').map(dish => (
               <FoodItem
@@ -67,9 +72,11 @@ export function Home() {
               />
             ))
           }
+          </div>
         </C.Section>
         <C.Section>
           <h1>Bebidas</h1>
+          <div className="carrousel">
           {
             filterDishes('drink').length === 0 ? <p className="default-msg">Nenhuma bebida cadastrada.</p> : filterDishes('drink').map(dish => (
               <FoodItem
@@ -82,7 +89,12 @@ export function Home() {
               />
             ))
           }
+          </div>
         </C.Section>
+        {
+          showLoading &&
+        <Loading/>
+        }
     </Theme>
   )
 }
