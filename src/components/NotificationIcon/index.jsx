@@ -1,10 +1,9 @@
 import * as C from "./styles"
-import {MdShoppingCart} from "react-icons/md"
 
-export function CartIcon({quant, ...rest}) {
+export function NotificationIcon({quant, icon: Icon, ...rest}) {
   return (
     <C.Container {...rest}>
-      <MdShoppingCart/>
+      {Icon && <Icon/>}
       {
       quant !== 0 && <p>{quant}</p>
       }

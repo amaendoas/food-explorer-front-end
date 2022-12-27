@@ -16,6 +16,6 @@ export const Container = styled.button`
   gap: 5px;
 
   svg {
-    font-size: calc(1.2rem + 0.4vw);
+    font-size: calc(1.2rem + 0.6vw);
   }
 `

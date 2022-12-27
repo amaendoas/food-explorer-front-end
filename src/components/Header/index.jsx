@@ -3,12 +3,12 @@ import logo from "../../assets/logo.svg"
 import { Link } from "react-router-dom"
 import { Button } from "../Button"
 import { BsSearch, BsReceipt} from "react-icons/bs"
-import {MdOutlineLogout, MdOutlineMenu, MdClear} from "react-icons/md"
+import {MdOutlineLogout, MdOutlineMenu, MdClear, MdAddCircleOutline, MdShoppingCart} from "react-icons/md"
 import { useAuth } from "../../contexts/auth"
 import { useState } from "react";
 import { useCart } from "../../contexts/cart"
 import { useNavigate } from "react-router-dom"
-import { CartIcon } from "../CartIcon"
+import { NotificationIcon } from "../NotificationIcon"
 
 export function Header() {
   const { signOut, user } = useAuth();
@@ -43,11 +43,21 @@ export function Header() {
           <BsSearch/>
           <input type="text" placeholder="Busque pelas opções de pratos" />
         </C.Search>
-        {
-          !user.isAdmin &&
-          <CartIcon quant={cart} onClick={() => navigate("/cart")}/>
-        }
-        <Button title={user.isAdmin ? "Pedidos" : "Meus pedidos"} icon={BsReceipt} onClick={() => navigate('/orders')}/>
+
+        <NotificationIcon quant={cart} icon={user.isAdmin ? BsReceipt : MdShoppingCart} onClick={() => {
+          if(user.isAdmin) {
+            navigate('/orders')
+          } else {
+            navigate("/cart")
+          }
+          }}/>
+        <Button title={user.isAdmin ? "Novo Prato" : "Meus pedidos"} icon={user.isAdmin ? MdAddCircleOutline : BsReceipt} onClick={() => {
+          if(user.isAdmin) {
+            navigate('/add')
+          } else {
+            navigate('/orders')
+          }
+          }}/>
         <button className="logout" onClick={userSignOut}>
           <MdOutlineLogout/>
         </button>

@@ -1,11 +1,11 @@
 import * as C from "./styles"
 import { Theme } from "../../components/Theme"
 
-export function EditDish() {
+export function AddDish() {
   return (
     <Theme>
       <C.Container>
-        <h2>Editar prato</h2>
+        <h2>Adicionar prato</h2>
       </C.Container>
     </Theme>
   )
