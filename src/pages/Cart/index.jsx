@@ -7,6 +7,7 @@ import { useCart } from "../../contexts/cart";
 import pixIcon from "../../assets/pix.svg";
 import creditCardIcon from "../../assets/credit-card.svg";
 import {MdAttachMoney, MdQrCode2, MdRemoveShoppingCart, MdCheckCircleOutline} from "react-icons/md"
+import { BsReceipt } from "react-icons/bs"
 import { Input } from "../../components/Input";
 import { Loading } from "../../components/Loading";
 import { useNavigate } from "react-router-dom"
@@ -108,9 +109,9 @@ export function Cart() {
                 <p>Escolha uma forma de pagamento</p>
               </div>
               <div className={payment === 'pix' && cart !== 0 ? 'pix content': 'hide'}>
-                <p>Escanei o Qr Code abaixo para fazer pagamento</p>
+                <p>Escanei o Qr Code para fazer pagamento</p>
                 <MdQrCode2/>
-                <Button title="Pagar agora" onClick={newOrder}/>
+                <Button title="Finalizar Pagamento" icon={BsReceipt} onClick={newOrder}/>
               </div>
               <div className={payment === 'credit' && cart !== 0 ? 'credit content': 'hide'}>
                 <form action="">
@@ -119,8 +120,8 @@ export function Cart() {
                       <Input placeholder="05/22" title="Validade" type="number"/>
                       <Input placeholder="123" title="CVC" type="number"/>
                     </div>
+                    <Button title="Finalizar Pagamento" icon={BsReceipt} onClick={newOrder}/>
                 </form>
-              <Button title="Pagar agora" onClick={newOrder}/>
               </div>
               <div className={isFinished ? 'approved content' : 'hide'}>
                 <MdCheckCircleOutline/>
@@ -131,7 +132,6 @@ export function Cart() {
             </div>
           </div>
           <Button title="Voltar para o carrinho" className="btn-back-cart" onClick={() => {
-
             setShowPayment(!showPayment)
             }}/>
         </C.Payment>

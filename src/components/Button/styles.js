@@ -15,7 +15,7 @@ export const Container = styled.button`
   justify-content: center;
   gap: 5px;
 
-  svg {
+ svg.btn-icon {
     font-size: calc(1.2rem + 0.6vw);
   }
 `

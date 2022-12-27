@@ -28,10 +28,6 @@ export const Container = styled.div`
     align-items: center;
     gap: 1rem;
     color: ${({theme}) => theme.COLORS.GRAY_300};
-
-    svg {
-      font-size: calc(2rem + 4vw);
-    }
   }
 
   @media (max-width: 800px){
@@ -57,6 +53,10 @@ export const Cart = styled.div`
     min-height: calc(20rem + 20vh);
     overflow-y: auto;
     height: 80%;
+
+    svg {
+      font-size: calc(2rem + 4vw);
+    }
   }
 
   .cart-footer {
@@ -95,11 +95,6 @@ export const Payment = styled.div`
   grid-area: payment;
   height: 100%;
 
-  form {
-    width: 100%;
-    padding: 0 calc(2rem + 2vw);
-  }
-
   h2 {
     height: 10%;
   }
@@ -134,10 +129,23 @@ export const Payment = styled.div`
 
   .content-payment {
     height: 80%;
+    width: 100%;
+    padding: 0 calc(2rem + 4vw);
 
     .waiting, .pix, .credit, .approved {
       height: 100%;
 
+      p ~ svg {
+        font-size: calc(3rem + 4vw);
+      }
+
+      button { 
+        width: 100%;
+        margin-top: 2rem;
+      }
+    }
+
+    .waiting {
       svg {
         font-size: calc(3rem + 4vw);
       }

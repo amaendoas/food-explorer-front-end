@@ -25,8 +25,6 @@ export function Favs() {
   
   useEffect(() => {
     getFavsDishes()
-    console.log(favsList)
-    console.log(favDishes)
   }, [favsList])
   return (
       <Theme>
