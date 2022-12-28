@@ -1,11 +1,13 @@
 import { Theme } from "../../components/Theme"
 import * as C from "./styles"
 import { Status } from "../../components/Status"
+import { Back } from "../../components/Back"
 
 export function Orders() {
   return (
     <Theme>
       <C.Container>
+        <Back/>
         <h2>Meus pedidos</h2>
         <C.Table>
           <thead>

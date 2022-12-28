@@ -48,7 +48,7 @@ export default createGlobalStyle`
     height: 100vh;
   }
 
-  button, a, textarea {
+  button, a, textarea, input {
     font-family: 'Poppins', sans-serif;
     color: ${({ theme }) => theme.COLORS.GRAY_200};
   }
@@ -62,6 +62,13 @@ export default createGlobalStyle`
   input, textarea {
     background: transparent;
     border: none;
+    resize: none;
+  }
+
+  label {
+    font-size: calc(0.7rem + 0.6vw);
+    display: inline-block;
+    margin-bottom: 1rem;
   }
 
   a {

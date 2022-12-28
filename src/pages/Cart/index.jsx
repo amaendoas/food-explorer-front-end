@@ -126,7 +126,7 @@ export function Cart() {
               <div className={isFinished ? 'approved content' : 'hide'}>
                 <MdCheckCircleOutline/>
                 <p>Pagamento Aprovado!</p>
-                <Button title="Ir para meus pedidos" onClick={() => navigate('/myorders')}/>
+                <Button title="Ir para meus pedidos" onClick={() => navigate('/orders')}/>
               </div>
                 {showLoading && <Loading/>}
             </div>
