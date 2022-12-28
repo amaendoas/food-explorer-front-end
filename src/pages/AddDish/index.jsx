@@ -4,12 +4,20 @@ import { Back } from "../../components/Back";
 import { Input } from "../../components/Input"
 import { IngredientItem } from "../../components/IngredientItem";
 import { useState } from "react";
+import { api } from "../../services/api";
+import { Select } from "../../components/Select";
 
 export function AddDish() {
 
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
   const [showWarning, setShowWarning] = useState(false);
+
+  const options = [
+    { value: 'main', label: 'Pratos Principais'},
+    { value: 'drinks', label: 'Bebidas'},
+    { value: 'dessert', label: 'Sobremesas'}
+  ]
 
   function handleAddIngredient() {
     if(newIngredient === '') {
@@ -67,6 +75,10 @@ export function AddDish() {
               }
             </div>
             <Input title="Preço" type="text" placeholder="R$ 00,00"/>
+            <div className="category-wrapper">
+              <label htmlFor="categoria">Categoria</label>
+              <Select options={options} placeholder="Selecione uma categoria"/>
+            </div>
           </div>
           <div className="input-wrapper">
             <label htmlFor="description">Descrição</label>

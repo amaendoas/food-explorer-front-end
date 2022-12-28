@@ -4,7 +4,7 @@ export const Container = styled.div`
   height: 100%;
 
   h2 {
-    height: 8%;
+    height: 10%;
   }
 `
 
@@ -34,14 +34,16 @@ export const Content = styled.div `
   }
 
   .inputs-container:nth-child(2) {
+    flex-wrap: wrap;
     .input-wrapper {
-      width: 100%;
+      width: auto;
+      flex-grow: 1
     }
   }
 
   .ingredients-wrapper {
     display: flex;
-    width: 100%;
+    width: fit-content;
     gap: 1rem;
     height: 4.2rem;
     align-items: center;
@@ -78,4 +80,22 @@ export const Content = styled.div `
     font-weight: 500;
     font-size: 1.2rem;
   }
+
+  @media (max-width: 800px) {
+    .inputs-container:nth-child(1) {
+      div:nth-child(1) {
+        width: 100%;
+      }
+      div:nth-child(2) {
+        width: 100%;
+      }
+    }
+    
+    .inputs-container {
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
+  }
+
 `

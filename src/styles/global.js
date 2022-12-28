@@ -46,13 +46,19 @@ export default createGlobalStyle`
     font-family: 'Poppins', sans-serif;
     color: ${({ theme }) => theme.COLORS.GRAY_200};
     height: 100vh;
+    font-size: calc(0.7rem + 0.6vw);
   }
 
-  button, a, textarea, input {
+  button, a, textarea, input, select {
     font-family: 'Poppins', sans-serif;
     color: ${({ theme }) => theme.COLORS.GRAY_200};
   }
 
+  textarea, input, select {
+    border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
+    border-radius: 5px;
+  }
+  
   button {
     cursor: pointer;
     background: transparent;
@@ -66,7 +72,7 @@ export default createGlobalStyle`
   }
 
   label {
-    font-size: calc(0.7rem + 0.6vw);
+    font-size: calc(0.6rem + 0.6vw);
     display: inline-block;
     margin-bottom: 1rem;
   }
@@ -113,6 +119,5 @@ input[type="number"] {
       transform: translateX(0);
     }
   }
-
 
 `

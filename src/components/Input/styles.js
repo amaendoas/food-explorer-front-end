@@ -4,14 +4,12 @@ export const Container = styled.div`
   position: relative;
 
   input {
-    border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
     width: 100%;
     height: 4.2rem;
     padding: 0 1rem;
     align-self: center;
-    border-radius: 5px;
-    color: ${({theme}) => theme.COLORS.GRAY_200};
     font-size: 1.5rem;
+    border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
   }
 
   input[type=file] {
