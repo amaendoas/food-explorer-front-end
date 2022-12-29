@@ -35,8 +35,9 @@ export const Container = styled.div`
   }
 
   img {
-    width: calc(10rem + 2vw);
-    height: calc(10rem + 2vw);
+    width: calc(10rem + 4vw);
+    height: calc(10rem + 4vw);
+    border-radius: 50%;
     object-fit: cover;
   }
 

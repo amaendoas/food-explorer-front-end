@@ -46,7 +46,6 @@ export function Home() {
               (
                 <FoodItem
                 key={dish.id}
-                img={dish.img}
                 title={dish.name}
                 description={dish.description}
                 price={dish.price}

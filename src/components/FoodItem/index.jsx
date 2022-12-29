@@ -4,15 +4,16 @@ import { Button } from "../Button";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import { useCart } from "../../contexts/cart";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import foodImg from "../../assets/food-default.svg"
 import { api } from "../../services/api";
 import { useFavs } from "../../contexts/favs";
 
-export function FoodItem({img, title, description, price, dishId}) {
+export function FoodItem({title, description, price, dishId, isDetails}) {
   const [count, setCount] = useState(1);
   const [fav, setFav] = useState(false);
   const [ dish, setDish ] = useState();
+  const [dishImg, setDishImg] = useState();
 
   const { user } = useAuth();
   const { favsList, setFavsList, newFavsList} = useFavs();
@@ -51,6 +52,16 @@ export function FoodItem({img, title, description, price, dishId}) {
     }
   }
 
+  function handleFav() {
+    if(fav) {
+      setFav(false)
+      removeDishFav()
+    } else {
+      setFav(true)
+      setDishFav()
+    }
+  }
+
  function handleCart() {
     try {
       setCount(1)
@@ -78,6 +89,8 @@ export function FoodItem({img, title, description, price, dishId}) {
   async function getDish() {
     const { data } = await api.get(`/dishes/${dishId}`)
     setDish(data)
+    const img = data.image ? `${api.defaults.baseURL}/files/${data.image}` : foodImg
+    setDishImg(img)
   }
 
   useEffect(() => {
@@ -94,22 +107,16 @@ export function FoodItem({img, title, description, price, dishId}) {
          user.isAdmin ? 
          <button className="edit-btn" onClick={() => navigate("/edit")}>
            <MdEdit/>
-         </button> : <button onClick={() => {
-          if(fav) {
-            setFav(false)
-            removeDishFav()
-          } else {
-            setFav(true)
-            setDishFav()
-          }
-         }} className="fav-btn">
+         </button> : <button onClick={handleFav} className="fav-btn">
         {
           fav ? <MdFavorite className="red-heart"/> : <MdFavoriteBorder/>
         }
       </button>
       }
-      <img src={img ? img : foodImg} alt={`imagem de ${title}`} />
+      <Link to={`/details/${dishId}`}>
+      <img src={dishImg} alt={`imagem de ${title}`} />
       <h2>{title}</h2>
+      </Link>
       <p className="description">{description}</p>
       <p className="price">R$ {price}</p>
       <C.Count>
