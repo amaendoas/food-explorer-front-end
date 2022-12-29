@@ -1,12 +1,13 @@
 import * as C from "./styles"
 import SelectComponent from "react-select"
 
-export function Select({ options, placeholder}) {
+export function Select({ options, placeholder, onChange}) {
 
   return (
     <C.Container>
       <SelectComponent
       placeholder={placeholder}
+      onChange={onChange}
       styles={{
         container: (baseStyles, state) => ({
           ...baseStyles,

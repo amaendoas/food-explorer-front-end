@@ -52,11 +52,12 @@ export default createGlobalStyle`
   button, a, textarea, input, select {
     font-family: 'Poppins', sans-serif;
     color: ${({ theme }) => theme.COLORS.GRAY_200};
+    font-size: calc(0.5rem + 0.6vw);
   }
 
   textarea, input, select {
-    border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
     border-radius: 5px;
+    background: transparent;
   }
   
   button {
@@ -66,7 +67,6 @@ export default createGlobalStyle`
   }
 
   input, textarea {
-    background: transparent;
     border: none;
     resize: none;
   }

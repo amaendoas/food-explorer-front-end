@@ -25,12 +25,14 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     font-size: calc(0.7rem + 0.8rem);
+    width: 100%;
     gap: 1rem;
     border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
     padding: 0 1rem;
     height: 4.2rem;
     border-radius: 5px;
     cursor: pointer;
+    word-break: break-all;
 
     svg {
       font-size: calc(1.5rem + 0.7rem);
