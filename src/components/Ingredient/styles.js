@@ -9,7 +9,7 @@ export const Container = styled.div `
 
   img {
     width: auto;
-    height: calc(3rem + 2vw);
+    height: calc(2rem + 2vw);
   }
 
 `

@@ -24,6 +24,7 @@ export const DishImg = styled.div`
   img {
     width: calc(8rem + 10vw);
     height: auto;
+    border-radius: 50%;
   }
 `
 
