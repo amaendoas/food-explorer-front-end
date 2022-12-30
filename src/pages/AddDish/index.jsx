@@ -102,9 +102,6 @@ export function AddDish() {
       }
     })
   }
-
-
-
   return (
     <Theme>
       <C.Container>
@@ -115,6 +112,7 @@ export function AddDish() {
             <Input type="file" title="Imagem do Prato" placeholder="Selecione a imagem" imgDish={file} onChange={handleAddImage}/>
             <Input type="text" title="Nome" placeholder="Ex: Sala Ceasar" value={name} onChange={(e) => setName(e.target.value)}/>
           </div>
+          
           <div className="inputs-container">
             <div className="input-wrapper">
               <label htmlFor="ingredients">Ingredients</label>

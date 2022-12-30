@@ -58,7 +58,7 @@ export function FoodItem({dish}) {
     <C.Container>
       {
          user.isAdmin ? 
-         <button className="edit-btn" onClick={() => navigate("/edit")}>
+         <button className="edit-btn" onClick={() => navigate(`/edit/${dish.id}`)}>
            <MdEdit/>
          </button> : <button onClick={handleFav} className="fav-btn">
         {

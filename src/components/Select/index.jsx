@@ -1,11 +1,12 @@
 import * as C from "./styles"
 import SelectComponent from "react-select"
 
-export function Select({ options, placeholder, onChange}) {
+export function Select({ options, placeholder, onChange, isDisabled}) {
 
   return (
     <C.Container>
       <SelectComponent
+      isDisabled={isDisabled}
       placeholder={placeholder}
       onChange={onChange}
       styles={{
