@@ -2,8 +2,7 @@ import * as C from "./styles";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { useState } from "react";
 
-export function Input({title, placeholder, type, className, onChange, ...rest }){
-  const [fileName, setFilmeName] = useState('');
+export function Input({title, placeholder, type, className, onChange, imgDish, ...rest }){
 
   return(
     <C.Container className={className}>
@@ -12,17 +11,14 @@ export function Input({title, placeholder, type, className, onChange, ...rest })
         type === 'file' && <p>
            <MdOutlineFileUpload/>
           {
-            fileName === '' ? placeholder  : fileName 
+            imgDish === null ? placeholder  : imgDish.name 
           }
 
           </p>
       }
       </label>
       <input type={type} placeholder={placeholder}
-      {...rest} id={title} onChange={ type === 'file' ? (e) => {
-          let inputImage = e.target.files[0];
-          setFilmeName(inputImage.name)
-      } : onChange}/>
+      {...rest} id={title} onChange={onChange}/>
     </C.Container>
   )
 }

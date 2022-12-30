@@ -33,9 +33,8 @@ export function Details() {
   async function getIngredients() {
     try {
       const { data } = await api.get(`/ingredients/${params.id}`)
-      console.log(data)
       setIngredients(data)
-    } catch {
+    } catch(error) {
       console.error(error.message)
     }
   }
@@ -60,9 +59,9 @@ export function Details() {
             
             { ingredients &&
               <div className="ingredients-wrapper">
-                { ingredients.map((ingredient) => {
+                { ingredients.map((ingredient, index) => {
                   return (
-                    <Ingredient ingredient={ingredient}/>
+                    <Ingredient key={index} ingredient={ingredient}/>
                   )
                 }) }
               </div>

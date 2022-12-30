@@ -5,8 +5,8 @@ import { Input } from "../../components/Input"
 import { IngredientItem } from "../../components/IngredientItem";
 import { useState } from "react";
 import { api } from "../../services/api";
-import InputMask from "react-input-mask"
 import { Select } from "../../components/Select";
+import { useNavigate } from "react-router-dom";
 
 export function AddDish() {
 
@@ -17,6 +17,9 @@ export function AddDish() {
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
+  const [file, setFile] = useState(null);
+
+  const navigate = useNavigate();
 
   const options = [
     { value: 'main', label: 'Pratos Principais'},
@@ -53,12 +56,54 @@ export function AddDish() {
     setPrice(newPrice)
   }
   
-  function maskCurrency(valor, locale = 'pt-BR', currency = 'BRL') {
+  function maskCurrency(value, locale = 'pt-BR', currency = 'BRL') {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency
-    }).format(valor)
+    }).format(value)
   }
+
+  function handleAddImage(e) {
+    const file = e.target.files[0];
+    setFile(file)
+  }
+
+  function handleAddDish(par_file) {
+    api.post('/dishes', {
+      name,
+      description,
+      price,
+      category,
+      ingredients
+    }).then((res) => {
+      if(par_file !== null) {
+        const fileUploadForm = new FormData();
+        fileUploadForm.append('image', par_file)
+        api.patch(`/dishes/image/${res.data[0].id}`, fileUploadForm).then(() => {
+          alert('prato adicionado com sucesso!')
+          navigate('/')
+        }).catch((error) => {
+          if(error.response) {
+            alert(error.response.data.message)
+          } else {
+            console.error(error.message)
+          }
+        })
+      } else {
+        alert('prato adicionado com sucesso!')
+        navigate('/')
+        return
+      }
+    }).catch((error) => {
+      if(error.response) {
+        alert(error.response.data.message)
+      } else {
+        console.error(error.message)
+      }
+    })
+  }
+
+
 
   return (
     <Theme>
@@ -67,7 +112,7 @@ export function AddDish() {
         <h2>Adicionar prato</h2>
         <C.Content>
           <div className="inputs-container">
-            <Input type="file" title="Imagem do Prato" placeholder="Selecione a imagem"/>
+            <Input type="file" title="Imagem do Prato" placeholder="Selecione a imagem" imgDish={file} onChange={handleAddImage}/>
             <Input type="text" title="Nome" placeholder="Ex: Sala Ceasar" value={name} onChange={(e) => setName(e.target.value)}/>
           </div>
           <div className="inputs-container">
@@ -101,7 +146,7 @@ export function AddDish() {
                 <p className="warning">Adicione um nome ao novo ingrediente</p>
               }
             </div>
-            <Input title="Preço" isPrice type="text" onChange={handlePrice}/>
+            <Input title="Preço" type="text" onChange={handlePrice}/>
             <div className="category-wrapper">
               <label htmlFor="categoria">Categoria</label>
               <Select options={options} placeholder="Selecione uma categoria" onChange={handleSelectCategory}/>
@@ -111,7 +156,7 @@ export function AddDish() {
             <label htmlFor="description">Descrição</label>
             <textarea id="description" cols="30" rows="10" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
           </div>
-          <button className="add-btn">Adicionar prato</button>
+          <button className="add-btn" onClick={() => handleAddDish(file)}>Adicionar prato</button>
         </C.Content>
       </C.Container>
     </Theme>
