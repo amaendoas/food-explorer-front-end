@@ -36,11 +36,7 @@ export function Favs() {
               favDishes.map(fav => (
                       <FoodItem
                       key={fav.id}
-                      img={fav.img}
-                      title={fav.name}
-                      description={fav.description}
-                      price={fav.price}
-                      dishId={fav.id}
+                      dish={fav}
                       />
                     )
                   )

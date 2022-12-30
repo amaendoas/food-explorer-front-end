@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   height: calc(35rem + 5vw);
-  width: calc(19rem + 7vw);
+  width: calc(19rem + 7vw) ;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,6 +17,12 @@ export const Container = styled.div`
   -webkit-box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);
   -moz-box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);
   box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);
+  grid-template-columns: 50% 50%;
+  grid-template-areas:
+  "img title"
+  "img description"
+  "img ingredients"
+  "img cart";
 
   .fav-btn,
   .edit-btn {
@@ -46,28 +52,10 @@ export const Container = styled.div`
     font-weight: 400;
     color: ${({ theme }) => theme.COLORS.GRAY_300};
   }
-
+  
   .price {
     color: ${({ theme }) => theme.COLORS.PRIMARY};
     font-size: calc(1.8rem + 0.5vw);
   }
-`;
 
-export const Count = styled.div`
-  font-size: calc(1.5rem + 0.5vw);
-  width: 100%;
-  gap: 1.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  span {
-    display: inline-block;
-    width: 2.8rem;
-  }
-
-  svg {
-    font-size: calc(1rem + 0.5vw);
-    color: ${({ theme }) => theme.COLORS.GRAY_200};
-  }
 `;

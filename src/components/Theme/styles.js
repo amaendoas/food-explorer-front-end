@@ -17,4 +17,8 @@ export const Content = styled.main`
   @media (max-width: 1180px) {
     padding: 3rem 7rem;
   }
+
+  @media (max-width: 800px) {
+    padding: 2rem 3rem;
+  }
 `

@@ -4,18 +4,21 @@ import { useParams } from "react-router-dom"
 import { Theme } from "../../components/Theme";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { FoodItem } from "../../components/FoodItem";
 import { useAuth } from "../../contexts/auth";
 import { Loading } from "../../components/Loading";
+import { CartHandler } from "../../components/CartHandler";
+import foodImg from "../../assets/food-default.svg"
+import { Ingredient } from "../../components/Ingredient";
+import { useCart } from "../../contexts/cart";
 
 export function Details() {
   const [dish, setDish] = useState(null);
-  const { showLoading, setShowLoading} = useAuth()
+  const { showLoading, setShowLoading} = useAuth();
+  const [ingredients, setIngredients] = useState([]);
+  const { newCart, cart } = useCart()
   const params = useParams();
 
-  console.log(dish)
-
-  async function getDishes() {
+  async function getDish() {
     setShowLoading(true)
     try {
       setShowLoading(false)
@@ -27,27 +30,52 @@ export function Details() {
     }
   }
 
+  async function getIngredients() {
+    try {
+      const { data } = await api.get(`/ingredients/${params.id}`)
+      console.log(data)
+      setIngredients(data)
+    } catch {
+      console.error(error.message)
+    }
+  }
+
   useEffect(() => {
-    getDishes()
-  }, [])
+    getDish()
+    getIngredients()
+    newCart()
+  }, [cart])
   return(
     <Theme>
-      <C.Container>
-        <Back/>
+      <Back/>
         {
           dish &&
-        <FoodItem
-        title={dish.name}
-        description={dish.description}
-        dishId={dish.id}
-        price={dish.price}
-        />
+        <C.Container>
+          <C.DishImg>
+            <img src={dish.image ? `${api.defaults.baseURL}/files/${dish.image}` : foodImg} alt="" />
+          </C.DishImg>
+          <C.Info>
+            <h1>{dish.name}</h1>
+            <p>{dish.description}</p>
+            
+            { ingredients &&
+              <div className="ingredients-wrapper">
+                { ingredients.map((ingredient) => {
+                  return (
+                    <Ingredient ingredient={ingredient}/>
+                  )
+                }) }
+              </div>
+            }
+            <CartHandler dish={dish} className="count"/>
+
+          </C.Info>
+          {
+          showLoading &&
+          <Loading/>
+          }
+        </C.Container>
         }
-        {
-        showLoading &&
-        <Loading/>
-        }
-      </C.Container>
     </Theme>
   )
 }

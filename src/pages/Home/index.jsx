@@ -46,10 +46,7 @@ export function Home() {
               (
                 <FoodItem
                 key={dish.id}
-                title={dish.name}
-                description={dish.description}
-                price={dish.price}
-                dishId={dish.id}
+                dish={dish}
                 />
               )
               )
@@ -63,11 +60,7 @@ export function Home() {
             filterDishes('dessert').length === 0 ? <p className="default-msg">Nenhuma sobremesa cadastrada.</p> :filterDishes('dessert').map(dish => (
               <FoodItem
               key={dish.id}
-              img={dish.img}
-              title={dish.name}
-              description={dish.description}
-              price={dish.price}
-              dishId={dish.id}
+              dish={dish}
               />
             ))
           }
@@ -80,11 +73,7 @@ export function Home() {
             filterDishes('drink').length === 0 ? <p className="default-msg">Nenhuma bebida cadastrada.</p> : filterDishes('drink').map(dish => (
               <FoodItem
               key={dish.id}
-              img={dish.img}
-              title={dish.name}
-              description={dish.description}
-              price={dish.price}
-              dishId={dish.id}
+              dish={dish}
               />
             ))
           }
