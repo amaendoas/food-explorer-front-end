@@ -140,6 +140,16 @@ export function EditDish() {
     }
   }
 
+  function handleDeleteDish() {
+    try {
+      api.delete(`/dishes/${dish.id}`)
+      alert('Prato deletado com sucesso')
+      navigate("/")
+    } catch(error) {
+      alert(error.message)
+    }
+  }
+
   useEffect(() => {
     getDish()
     getIngredients()
@@ -200,7 +210,10 @@ export function EditDish() {
             <label htmlFor="description">Descrição</label>
             <textarea id="description" cols="30" rows="10" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
           </div>
-          <button className="add-btn" onClick={() => handleUpdateDish(file)}>Atualizar prato</button>
+          <div className="buttons">
+            <button className="add-btn" onClick={() => handleUpdateDish(file)}>Atualizar prato</button>
+            <button className="remove-btn" onClick={handleDeleteDish}>Excluir Prato</button>
+          </div>
         </C.Content>
 
         {

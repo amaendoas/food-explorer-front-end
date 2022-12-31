@@ -6,6 +6,12 @@ export const Container = styled.div`
   h2 {
     height: 10%;
   }
+
+  @media (max-width: 800px) {
+    h2 {
+      height: 5%;
+    }
+  }
 `
 
 export const Content = styled.div`
@@ -71,14 +77,20 @@ height: 80%;
     color: ${({theme}) => theme.COLORS.GRAY_200};
   }
 
-  button.add-btn {
+  button.add-btn, button.remove-btn {
     color: ${({theme}) => theme.COLORS.GRAY_200};
     border-radius: 5px;
-    background-color: ${({theme}) => theme.COLORS.SECONDARY};
     padding: 1rem 4rem;
     width: fit-content;
     margin-bottom: 2rem;
-    align-self: end;
+  }
+
+  button.add-btn {
+    background-color: ${({theme}) => theme.COLORS.SECONDARY};
+  }
+
+  button.remove-btn {
+    background-color: ${({theme}) => theme.COLORS.RED};
   }
 
   .warning {
@@ -87,6 +99,12 @@ height: 80%;
     color: ${({theme}) => theme.COLORS.RED};
     font-weight: 500;
     font-size: 1.2rem;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   @media (max-width: 800px) {
