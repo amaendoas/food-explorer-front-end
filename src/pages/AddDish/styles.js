@@ -24,6 +24,14 @@ export const Content = styled.div `
     width: 100%;
   }
 
+  .category-wrapper {
+    width: 50%;
+  }
+
+  .price {
+    flex-grow: 1;
+  }
+
   .inputs-container:nth-child(1) {
     div:nth-child(1) {
       width: 30%;
@@ -95,6 +103,10 @@ export const Content = styled.div `
       flex-direction: column;
       gap: 1rem;
       width: 100%;
+    }
+
+    .category-wrapper {
+      width: 50%;
     }
   }
 

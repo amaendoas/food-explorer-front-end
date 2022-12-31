@@ -20,6 +20,14 @@ height: 80%;
     width: 100%;
   }
 
+  .category-wrapper {
+    width: 50%;
+  }
+
+  .price {
+    flex-grow: 1;
+  }
+
   .input-wrapper {
     width: 100%;
   }
@@ -36,7 +44,7 @@ height: 80%;
   .inputs-container:nth-child(2) {
     flex-wrap: wrap;
     .input-wrapper {
-      width: auto;
+      width: 100%;
       flex-grow: 1
     }
   }
@@ -94,6 +102,10 @@ height: 80%;
     .inputs-container {
       flex-direction: column;
       gap: 1rem;
+      width: 100%;
+    }
+
+    .category-wrapper {
       width: 100%;
     }
   }

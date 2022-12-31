@@ -144,7 +144,7 @@ export function AddDish() {
                 <p className="warning">Adicione um nome ao novo ingrediente</p>
               }
             </div>
-            <Input title="Preço" type="text" onChange={handlePrice}/>
+            <Input title="Preço" type="text" className="price" onChange={handlePrice}/>
             <div className="category-wrapper">
               <label htmlFor="categoria">Categoria</label>
               <Select options={options} placeholder="Selecione uma categoria" onChange={handleSelectCategory}/>

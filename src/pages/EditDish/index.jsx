@@ -22,6 +22,7 @@ export function EditDish() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState(null);
   const[dish, setDish] = useState('')
 
   const params = useParams();
@@ -36,7 +37,15 @@ export function EditDish() {
       setDish(data)
       setName(data.name)
       setPrice(data.price)
+      setFileName(data.image)
       setDescription(data.description)
+      if(dish.category === "main") {
+        setCategory('Pratos principais')
+      } else if(dish.category === "drink") {
+        setCategory('Bebidas')
+      } else {
+        setCategory('Sobremesas')
+      }
     } catch(error) {
       setShowLoading(false)
       console.error(error.message)
@@ -46,20 +55,14 @@ export function EditDish() {
   async function getIngredients() {
     try {
       const { data } = await api.get(`/ingredients/${params.id}`)
-      setIngredients(data)
+      let ingredients = [];
+      data.forEach(ingredient => {
+        ingredients.push(ingredient.name)
+      });
+      setIngredients(ingredients)
     } catch(error) {
       console.error(error.message)
     }
-  }
-
-  const options = [
-    { value: 'main', label: 'Pratos Principais'},
-    { value: 'drinks', label: 'Bebidas'},
-    { value: 'dessert', label: 'Sobremesas'}
-  ]
-
-  function handleSelectCategory(selectedOption) {
-    setCategory(selectedOption.value)
   }
 
   function handleAddIngredient() {
@@ -100,38 +103,41 @@ export function EditDish() {
   }
 
   function handleUpdateDish(par_file) {
-    // api.post('/dishes', {
-    //   name,
-    //   description,
-    //   price,
-    //   category,
-    //   ingredients
-    // }).then((res) => {
-    //   if(par_file !== null) {
-    //     const fileUploadForm = new FormData();
-    //     fileUploadForm.append('image', par_file)
-    //     api.patch(`/dishes/image/${res.data[0].id}`, fileUploadForm).then(() => {
-    //       alert('prato adicionado com sucesso!')
-    //       navigate('/')
-    //     }).catch((error) => {
-    //       if(error.response) {
-    //         alert(error.response.data.message)
-    //       } else {
-    //         console.error(error.message)
-    //       }
-    //     })
-    //   } else {
-    //     alert('prato adicionado com sucesso!')
-    //     navigate('/')
-    //     return
-    //   }
-    // }).catch((error) => {
-    //   if(error.response) {
-    //     alert(error.response.data.message)
-    //   } else {
-    //     console.error(error.message)
-    //   }
-    // })
+
+    try {
+      api.put(`/dishes/${dish.id}`, {
+        name,
+        description,
+        price,
+        category,
+        ingredients
+      })
+
+      if(par_file !== null) {
+        const fileUploadForm = new FormData();
+        fileUploadForm.append('image', par_file)
+        api.patch(`/dishes/image/${dish.id}`, fileUploadForm).then(() => {
+          alert('prato adicionado com sucesso!')
+          navigate('/')
+        }).catch((error) => {
+          if(error.response) {
+            alert(error.response.data.message)
+          } else {
+            console.error(error.message)
+          }
+        })
+      } else {
+        alert('prato atualizado com sucesso!')
+        navigate('/')
+        return
+      }   
+    } catch(error) {
+      if(error.response) {
+        alert(error.response.data.message)
+      } else {
+        console.error(error.message)
+      }
+    }
   }
 
   useEffect(() => {
@@ -139,6 +145,7 @@ export function EditDish() {
     getIngredients()
   }, [])
 
+  console.log(file)
 
   return (
     <Theme>
@@ -147,7 +154,7 @@ export function EditDish() {
         <h2>Editar prato</h2>
         <C.Content>
           <div className="inputs-container">
-            <Input type="file" title="Imagem do Prato" placeholder={dish.image ? dish.image : "Selecione uma imagem"} imgDish={file} onChange={handleAddImage}/>
+            <Input type="file" title="Imagem do Prato" placeholder={fileName ? fileName : "Selecione uma imagem"} imgDish={file} onChange={(e) => handleAddImage(e)}/>
             <Input type="text" title="Nome" placeholder="Ex: Sala Ceasar" value={name} onChange={(e) => setName(e.target.value)}/>
           </div>
 
@@ -170,7 +177,7 @@ export function EditDish() {
                     return (
                       <IngredientItem
                       key={index}
-                      value={ingredient.name}
+                      value={ingredient}
                       onClick={() => handleRemoveIngredient(ingredient)}
                       />
                     )
@@ -182,10 +189,10 @@ export function EditDish() {
                 <p className="warning">Adicione um nome ao novo ingrediente</p>
               }
             </div>
-            <Input title="Preço" value={price} type="text" onChange={handlePrice}/>
+            <Input title="Preço" value={price} className="price" type="text" onChange={handlePrice}/>
             <div className="category-wrapper">
               <label htmlFor="categoria">Categoria</label>
-              <Select options={options} placeholder={dish.category} onChange={handleSelectCategory} isDisabled/>
+              <Select placeholder={category} isDisabled/>
             </div>
           </div>
 
