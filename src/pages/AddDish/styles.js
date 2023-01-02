@@ -43,10 +43,6 @@ export const Content = styled.div `
 
   .inputs-container:nth-child(2) {
     flex-wrap: wrap;
-    .input-wrapper {
-      width: auto;
-      flex-grow: 1
-    }
   }
 
   .ingredients-wrapper {

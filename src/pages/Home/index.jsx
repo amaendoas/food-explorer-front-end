@@ -11,6 +11,7 @@ import { Loading } from "../../components/Loading"
 export function Home() {
   const [dishes, setDishes] = useState([]);
   const { user, showLoading } = useAuth();
+  const [ search, setSearch ] = useState("");
 
   function filterDishes(category) {
     return dishes.filter((item) => item.category === category)
@@ -19,7 +20,7 @@ export function Home() {
   useEffect(() => {
     async function getDishes() {
       try {
-        const response = await api.get('/dishes')
+        const response = await api.get(`/dishes?name=${search}`)
         setDishes(response.data)
       } catch(error) {
         console.error(error.message)
@@ -29,7 +30,7 @@ export function Home() {
   }, [dishes])
 
   return (
-    <Theme>
+    <Theme search={setSearch}>
       <h2>Olá, {user.name}</h2>
         <C.Hero>
           <img src={homeImg} alt="" />

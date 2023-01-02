@@ -10,7 +10,7 @@ import { useCart } from "../../contexts/cart"
 import { useNavigate } from "react-router-dom"
 import { NotificationIcon } from "../NotificationIcon"
 
-export function Header() {
+export function Header({search}) {
   const { signOut, user } = useAuth();
   const [show, setShow] = useState(false);
   const { cart } = useCart();
@@ -41,7 +41,7 @@ export function Header() {
         }
         <C.Search>
           <BsSearch/>
-          <input type="text" placeholder="Busque pelas opções de pratos" />
+          <input type="text" placeholder="Busque pelas opções de pratos" onChange={(e) => search(e.target.value)} />
         </C.Search>
 
         <NotificationIcon quant={cart} icon={user.isAdmin ? BsReceipt : MdShoppingCart} onClick={() => {
