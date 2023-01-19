@@ -26,7 +26,7 @@ export function Orders() {
       if(user.isAdmin) {
         res = await api.get(`/orders`)
       } else {
-        res = await api.get(`/orders/${user.id}`).data
+        res = await api.get(`/orders/${user.id}`)
       }
 
       const data = res.data;
@@ -35,7 +35,7 @@ export function Orders() {
       setShowLoading(false)
     } catch(error) {
       if(error.response) {
-        alert(error.response.data.message)
+        console.error(error.response.data)
       } else {
         console.error(error.message)
       }
@@ -109,6 +109,20 @@ export function Orders() {
   
   return numberWithZeroes;
 }
+
+async function handleSelectStatus(selectedOption, code) {
+  try {
+    await api.patch(`/orders/${code}`, {status: selectedOption.value})
+    alert(`o status do pedido ${code} foi alterado com sucesso!`)
+  } catch(error) {
+    if(error.response) {
+      alert(error.response.data.message)
+    } else {
+      console.error(error.message)
+    }
+  }
+}
+
   
   useEffect(() => {
     getOrders()
@@ -142,8 +156,8 @@ export function Orders() {
                 return (
                   <tr key={index}>
                   <td className="status">
-                    {
-                      user.isAdmin ? <Select options={options} placeholder={order.status}/> : <Status status={order.status}/>
+                    { 
+                      user.isAdmin ? <Select options={options} placeholder={order.status} onChange={(selectedOption) => handleSelectStatus(selectedOption, order.code)}/> : <Status status={order.status}/>
                     }
                   </td>
                   <td>{addZeroes(order.code)}</td>
