@@ -48,10 +48,11 @@ export const Content = styled.div `
   .ingredients-wrapper {
     display: flex;
     width: fit-content;
+    flex-wrap: wrap;
     gap: 1rem;
-    height: 4.2rem;
+    height: fit-content;
     align-items: center;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     position: relative;
   }
   

@@ -24,6 +24,11 @@ export const Container = styled.div`
   "img ingredients"
   "img cart";
 
+  h2 {
+    display: flex;
+    align-items: center;
+  }
+
   .fav-btn,
   .edit-btn {
     position: absolute;

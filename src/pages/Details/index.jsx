@@ -26,7 +26,11 @@ export function Details() {
       setDish(data)
     } catch(error) {
       setShowLoading(false)
-      console.error(error.message)
+      if(error.response) {
+        alert(error.response.data.message)
+      } else {
+        console.error(error.message)
+      }
     }
   }
 
@@ -35,7 +39,11 @@ export function Details() {
       const { data } = await api.get(`/ingredients/${params.id}`)
       setIngredients(data)
     } catch(error) {
-      console.error(error.message)
+      if(error.response) {
+        alert(error.response.data.message)
+      } else {
+        console.error(error.message)
+      }
     }
   }
 

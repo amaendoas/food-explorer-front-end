@@ -23,7 +23,7 @@ export function AddDish() {
 
   const options = [
     { value: 'main', label: 'Pratos Principais'},
-    { value: 'drinks', label: 'Bebidas'},
+    { value: 'drink', label: 'Bebidas'},
     { value: 'dessert', label: 'Sobremesas'}
   ]
 

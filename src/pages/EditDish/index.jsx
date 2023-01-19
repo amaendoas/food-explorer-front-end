@@ -48,7 +48,11 @@ export function EditDish() {
       }
     } catch(error) {
       setShowLoading(false)
-      console.error(error.message)
+      if(error.response) {
+        alert(error.response.data.message)
+      } else {
+        console.error(error.message)
+      }
     }
   }
 
@@ -61,7 +65,11 @@ export function EditDish() {
       });
       setIngredients(ingredients)
     } catch(error) {
-      console.error(error.message)
+      if(error.response) {
+        alert(error.response.data.message)
+      } else {
+        console.error(error.message)
+      }
     }
   }
 
@@ -211,8 +219,8 @@ export function EditDish() {
             <textarea id="description" cols="30" rows="10" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
           </div>
           <div className="buttons">
-            <button className="add-btn" onClick={() => handleUpdateDish(file)}>Atualizar prato</button>
             <button className="remove-btn" onClick={handleDeleteDish}>Excluir Prato</button>
+            <button className="add-btn" onClick={() => handleUpdateDish(file)}>Atualizar prato</button>
           </div>
         </C.Content>
 

@@ -12,15 +12,17 @@ export const Container = styled.div`
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  height: 80%;
-  
+  overflow-y: auto;
+
   th, td {
+    height: fit-content;
     text-align: start;
-    padding: 1.6rem 0 1.6rem 1.6rem;
+    padding: 1.6rem;
     border: 1px solid ${({theme}) => theme.COLORS.BACKGROUND_600};
   }
 
   td.no-orders {
     text-align: center;
   }
+
 `

@@ -17,7 +17,8 @@ export function Select({ options, placeholder, onChange, isDisabled}) {
         control: (baseStyles, state) => ({
         ...baseStyles,
         backgroundColor: '#000A0F',
-        minWidth: 'calc(12rem + 10vw);',
+        width: '100%',
+        alignSelf: 'center',
         height: '100%'
       }),
       singleValue: (baseStyles, state) => ({
@@ -38,11 +39,6 @@ export function Select({ options, placeholder, onChange, isDisabled}) {
         ...baseStyles,
         backgroundColor: state.isFocused ? '#000A0F' : state.isSelected ? '#065E7C' : 'transparent',
       }),
-      placeholder: (baseStyles, state) => ({
-        ...baseStyles,
-        fontSize: 'calc(0.5rem + 0.6vw)'
-      })
-
     }}
       options={options}
       />

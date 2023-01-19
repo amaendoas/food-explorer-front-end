@@ -1,5 +1,5 @@
 import * as C from "./styles";
-import { MdFavoriteBorder, MdFavorite, MdAdd, MdRemove, MdEdit} from "react-icons/md";
+import { MdFavoriteBorder, MdFavorite,MdKeyboardArrowRight, MdEdit} from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import { useCart } from "../../contexts/cart";
@@ -68,7 +68,7 @@ export function FoodItem({dish}) {
       }
         <Link to={`/details/${dish.id}`}>
         <img src={dish.image ? `${api.defaults.baseURL}/files/${dish.image}` : foodImg} alt={`imagem de ${dish.name}`} />
-        <h2>{dish.name}</h2>
+        <h2>{dish.name} <MdKeyboardArrowRight/></h2>
         </Link>
       <p className="description">{dish.description}</p>
       <p className="price">R$ {dish.price}</p>

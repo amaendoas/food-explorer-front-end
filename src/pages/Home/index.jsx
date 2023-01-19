@@ -23,7 +23,11 @@ export function Home() {
         const response = await api.get(`/dishes?name=${search}`)
         setDishes(response.data)
       } catch(error) {
-        console.error(error.message)
+        if(error.response) {
+          alert(error.response.data.message)
+        } else {
+          console.error(error.message)
+        }
       }
     }
     getDishes()
@@ -43,7 +47,7 @@ export function Home() {
           <h1>Pratos principais</h1>
           <div className="carrousel">
           {
-            filterDishes('main').length === 0 ? <p className="default-msg">Nenhum prato principal cadastrado.</p> :filterDishes('main').map(dish => 
+            filterDishes('main').length === 0 ? <p className="default-msg">Nenhum prato principal encontrado.</p> :filterDishes('main').map(dish => 
               (
                 <FoodItem
                 key={dish.id}
@@ -58,7 +62,7 @@ export function Home() {
           <h1>Sobremesas</h1>
           <div className="carrousel">
           {
-            filterDishes('dessert').length === 0 ? <p className="default-msg">Nenhuma sobremesa cadastrada.</p> :filterDishes('dessert').map(dish => (
+            filterDishes('dessert').length === 0 ? <p className="default-msg">Nenhuma sobremesa encontrada.</p> :filterDishes('dessert').map(dish => (
               <FoodItem
               key={dish.id}
               dish={dish}
@@ -71,7 +75,7 @@ export function Home() {
           <h1>Bebidas</h1>
           <div className="carrousel">
           {
-            filterDishes('drink').length === 0 ? <p className="default-msg">Nenhuma bebida cadastrada.</p> : filterDishes('drink').map(dish => (
+            filterDishes('drink').length === 0 ? <p className="default-msg">Nenhuma bebida encontrada.</p> : filterDishes('drink').map(dish => (
               <FoodItem
               key={dish.id}
               dish={dish}

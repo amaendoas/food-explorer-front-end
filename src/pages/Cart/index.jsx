@@ -9,6 +9,7 @@ import creditCardIcon from "../../assets/credit-card.svg";
 import {MdAttachMoney, MdQrCode2, MdRemoveShoppingCart, MdCheckCircleOutline} from "react-icons/md"
 import { BsReceipt } from "react-icons/bs"
 import { Input } from "../../components/Input";
+import { api } from "../../services/api";
 import { Loading } from "../../components/Loading";
 import { useNavigate } from "react-router-dom"
 
@@ -21,6 +22,7 @@ export function Cart() {
   const [payment, setPayment] = useState('waiting');
   const [isFinished, setIsfinished] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
+  const [orderItems, setOrderItems] = useState([]);
   
   function totalPriceNumber(price, item) {
     const newPrice = Number(price.replace(',','.'));
@@ -39,17 +41,36 @@ export function Cart() {
     setPayment(statePayment)
   }
 
-  function newOrder() {
+  async function newOrder() {
     setShowLoading(true)
-    setTimeout(() => {
-      setPayment('finished')
-      setIsfinished(true)
-      setCart(0)
-      setCartItems([])
-      setShowLoading(false)
-    }, 2000)
+    try {
+      await api.post('/orders', newOrderItems(items))
+      setTimeout(() => {
+        setPayment('finished')
+        setIsfinished(true)
+        setCart(0)
+        setCartItems([])
+        setShowLoading(false)
+      }, 2000)
+    } catch(error) {
+      if(error.response) {
+        alert(error.response.data.message)
+      } else {
+        console.error(error.message)
+      }
+    }
   }
 
+  function newOrderItems(items) {
+    let newOrder = []
+    items.map((item) => {
+      newOrder.push({
+        dish_id: item.dish.id,
+        dish_quant: item.quant
+      })
+    })
+    return newOrder
+  }
 
   useEffect(() => {
     const getItems = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"))
