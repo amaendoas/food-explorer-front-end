@@ -10,10 +10,11 @@ import { CartHandler } from "../../components/CartHandler";
 import foodImg from "../../assets/food-default.svg"
 import { Ingredient } from "../../components/Ingredient";
 import { useCart } from "../../contexts/cart";
+import { Alert } from "../../components/Alert";
 
 export function Details() {
   const [dish, setDish] = useState(null);
-  const { showLoading, setShowLoading} = useAuth();
+  const { showLoading, setShowLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth();
   const [ingredients, setIngredients] = useState([]);
   const { newCart, cart } = useCart()
   const params = useParams();
@@ -27,9 +28,11 @@ export function Details() {
     } catch(error) {
       setShowLoading(false)
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível exibir esse prato')
+        setSuccess(false)
       }
     }
   }
@@ -40,9 +43,11 @@ export function Details() {
       setIngredients(data)
     } catch(error) {
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível exibir os ingredientes')
+        setSuccess(false)
       }
     }
   }
@@ -54,6 +59,7 @@ export function Details() {
   }, [cart])
   return(
     <Theme>
+      <Alert msg={alertMsg} isSuccess={success}/>
       <Back/>
         {
           dish &&

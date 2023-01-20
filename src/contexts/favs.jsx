@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { createContext, useContext } from "react";
 import { api } from "../services/api";
+import { useAuth } from "./auth";
 
 export const FavsContext = createContext({});
 
 function FavsProvider({children}) {
   const [favsList, setFavsList] = useState([]);
-
-
+  const { setAlertMsg, setSuccess } = useAuth();
   
   function newFavsList(user_id){
     api.get(`/favorites/${user_id}`)
@@ -16,9 +16,10 @@ function FavsProvider({children}) {
     })
     .catch((error) => {
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível adicionar aos favoritos')
       }
     });
   }

@@ -12,6 +12,8 @@ import { Input } from "../../components/Input";
 import { api } from "../../services/api";
 import { Loading } from "../../components/Loading";
 import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../contexts/auth";
+import { Alert } from "../../components/Alert";
 
 export function Cart() {
   const navigate = useNavigate();
@@ -20,9 +22,9 @@ export function Cart() {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState([]);
   const [payment, setPayment] = useState('waiting');
-  const [isFinished, setIsfinished] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
-  const [orderItems, setOrderItems] = useState([]);
+  const { success, alertMsg, setAlertMsg, setSuccess } = useAuth();
   
   function totalPriceNumber(price, item) {
     const newPrice = Number(price.replace(',','.'));
@@ -47,16 +49,16 @@ export function Cart() {
       await api.post('/orders', newOrderItems(items))
       setTimeout(() => {
         setPayment('finished')
-        setIsfinished(true)
+        setIsFinished(true)
         setCart(0)
         setCartItems([])
         setShowLoading(false)
       }, 2000)
     } catch(error) {
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível fazer o pagamento')
       }
     }
   }
@@ -81,6 +83,7 @@ export function Cart() {
   return (
     <Theme>
       <C.Container>
+      <Alert msg={alertMsg} isSuccess={success}/>
         <C.Cart className={showPayment && 'hide'}>
           <div className="cart-header">
             <h2>Meu carrinho</h2>

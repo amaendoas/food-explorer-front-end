@@ -1,10 +1,10 @@
 import * as C from "./styles.js";
-import FadeLoader from "react-spinners/FadeLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
-export function Loading() {
+export function Loading({...rest}) {
   return (
-    <C.Container>
-      <FadeLoader color={'#82F3FF'} />
+    <C.Container id="loading">
+      <ClipLoader color={'#82F3FF'} {...rest}/>
       <p>Loading...</p>
       </C.Container>
   )

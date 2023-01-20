@@ -11,6 +11,8 @@ function AuthProvider({ children }) {
   const [showLoading, setShowLoading] = useState(false);
   const { setCart, setCartItems } = useCart();
   const { setFavsList } = useFavs();
+  const [alertMsg, setAlertMsg] = useState('');
+  const [success, setSuccess] = useState(false);
 
   async function signIn({ email, password }) {
     setShowLoading(true)
@@ -29,9 +31,11 @@ function AuthProvider({ children }) {
     } catch(error) {
       setShowLoading(false)
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        alert('Não foi possível entrar')
+        setAlertMsg('Não foi possível entrar')
+        setSuccess(false)
       }
     }
 
@@ -68,7 +72,7 @@ function AuthProvider({ children }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={ { signIn, signOut, user: data.user, showLoading, setShowLoading }}>
+    <AuthContext.Provider value={ { signIn, signOut, user: data.user, showLoading, setShowLoading, alertMsg, success, setAlertMsg, setSuccess }}>
       {children}
     </AuthContext.Provider>
   )

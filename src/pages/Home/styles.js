@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  #alert {
+    position: sticky;
+    top: 15px;
+  }
+`
+
 export const Hero = styled.div`
     width: 100%;
     height: fit-content;
@@ -43,6 +50,7 @@ export const Hero = styled.div`
 
 export const Section = styled.section`
   margin: 5rem 0;
+  position: relative;
   h1 {
     font-weight: 500;
     font-size: 3rem;
@@ -52,3 +60,4 @@ export const Section = styled.section`
     display: flex;
   }
 `
+

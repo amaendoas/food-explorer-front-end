@@ -4,11 +4,13 @@ import { MdAdd, MdRemove} from "react-icons/md";
 import { Button } from "../Button";
 import { useAuth } from "../../contexts/auth";
 import { useCart } from "../../contexts/cart";
+import { Alert } from "../Alert";
 
 export function CartHandler({dish, icon, className}) {
   const [count, setCount] = useState(1);
   const { user } = useAuth();
   const { cart, setCart, newCart, setCartItems } = useCart();
+  const {  alertMsg, success, setAlertMsg, setSuccess  } = useAuth();
     
   const items = JSON.parse(localStorage.getItem("@foodexplorer: cartItems"));
 
@@ -37,16 +39,20 @@ export function CartHandler({dish, icon, className}) {
         }
         items.push(cartDish)
         setCartItems(items)
-        alert('Adicionado ao Carrinho!')
+        setAlertMsg('Adicionado ao Carrinho!')
+        setSuccess(true)
     } catch(error) {
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível adicionar esse item ao carrinho')
+        setSuccess(false)
       }
     }
   }
   return (
+    <>
     <C.Container className={className}>
       <button onClick={minusCount}><MdRemove/></button>
         <span>{
@@ -55,6 +61,6 @@ export function CartHandler({dish, icon, className}) {
       <button onClick={plusCount}><MdAdd/></button>
       <Button icon={icon} title="Incluir" onClick={handleCart} disabled={user.isAdmin ? 'disabled' : false}/>
     </C.Container>
-    
+    </>
   )
 }

@@ -7,6 +7,8 @@ import { useState } from "react";
 import { api } from "../../services/api";
 import { Select } from "../../components/Select";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/auth";
+import { Alert } from "../../components/Alert";
 
 export function AddDish() {
 
@@ -18,6 +20,7 @@ export function AddDish() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
+  const { success, alertMsg, setAlertMsg, setSuccess } = useAuth();
 
   const navigate = useNavigate();
 
@@ -80,31 +83,37 @@ export function AddDish() {
         const fileUploadForm = new FormData();
         fileUploadForm.append('image', par_file)
         api.patch(`/dishes/image/${res.data[0].id}`, fileUploadForm).then(() => {
-          alert('prato adicionado com sucesso!')
+          setAlertMsg('Prato adicionado com sucesso!')
+          setSuccess(true)
           navigate('/')
         }).catch((error) => {
           if(error.response) {
-            alert(error.response.data.message)
+            setAlertMsg(error.response.data.message)
+            setSuccess(false)
           } else {
-            console.error(error.message)
+            setAlertMsg('Não foi possível adicionar este prato')
           }
         })
       } else {
-        alert('prato adicionado com sucesso!')
+        setAlertMsg('Prato adicionado com sucesso!')
+        setSuccess(true)
         navigate('/')
         return
       }
     }).catch((error) => {
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setSuccess(false)
+        setAlertMsg('Não foi possível adicionar este prato')
       }
     })
   }
   return (
     <Theme>
       <C.Container>
+      <Alert msg={alertMsg} isSuccess={success}/>
         <Back/>
         <h2>Adicionar prato</h2>
         <C.Content>

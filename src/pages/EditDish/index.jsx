@@ -10,9 +10,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuth } from "../../contexts/auth";
 import { Loading } from "../../components/Loading";
+import { Alert } from "../../components/Alert";
 
 export function EditDish() {
-  const { showLoading, setShowLoading } = useAuth(); 
+  const { showLoading, setShowLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth(); 
 
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
@@ -23,7 +24,7 @@ export function EditDish() {
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);
-  const[dish, setDish] = useState('')
+  const[dish, setDish] = useState('');
 
   const params = useParams();
 
@@ -49,9 +50,11 @@ export function EditDish() {
     } catch(error) {
       setShowLoading(false)
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível carregar as informações')
+        setSuccess(false)
       }
     }
   }
@@ -66,9 +69,11 @@ export function EditDish() {
       setIngredients(ingredients)
     } catch(error) {
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível carregar os ingredientes')
+        setSuccess(false)
       }
     }
   }
@@ -125,25 +130,31 @@ export function EditDish() {
         const fileUploadForm = new FormData();
         fileUploadForm.append('image', par_file)
         api.patch(`/dishes/image/${dish.id}`, fileUploadForm).then(() => {
-          alert('prato adicionado com sucesso!')
+          setAlertMsg('Prato adicionado com sucesso!')
+          setSuccess(true)
           navigate('/')
         }).catch((error) => {
           if(error.response) {
-            alert(error.response.data.message)
+            setAlertMsg(error.response.data.message)
+            setSuccess(false)
           } else {
-            console.error(error.message)
+            setAlertMsg('Não foi possível fazer o update')
+            setSuccess(false)
           }
         })
       } else {
-        alert('prato atualizado com sucesso!')
+        setAlertMsg('Prato adicionado com sucesso!')
+        setSuccess(true)
         navigate('/')
         return
       }   
     } catch(error) {
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível fazer o update')
+        setSuccess(false)
       }
     }
   }
@@ -151,10 +162,17 @@ export function EditDish() {
   function handleDeleteDish() {
     try {
       api.delete(`/dishes/${dish.id}`)
-      alert('Prato deletado com sucesso')
+      setAlertMsg('Prato deletado com sucesso!')
+      setSuccess(true)
       navigate("/")
     } catch(error) {
-      alert(error.message)
+      if(error.response) {
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
+      } else {
+        setAlertMsg('Não foi possível excluir esse prato')
+        setSuccess(false)
+      }
     }
   }
 
@@ -167,6 +185,7 @@ export function EditDish() {
 
   return (
     <Theme>
+      <Alert msg={alertMsg} isSuccess={success}/>
       <Back/>
       <C.Container>
         <h2>Editar prato</h2>

@@ -7,6 +7,7 @@ export const Container = styled.div`
   grid-template-areas: "header"
   "content"
   "footer";
+  position: relative;
 `
 
 export const Content = styled.main`

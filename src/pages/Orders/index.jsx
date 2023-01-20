@@ -1,17 +1,20 @@
-import { Theme } from "../../components/Theme"
-import * as C from "./styles"
-import { Status } from "../../components/Status"
-import { useAuth } from "../../contexts/auth"
-import { useState, useEffect } from "react"
-import { api } from "../../services/api"
-import { Back } from "../../components/Back"
-import { Loading } from "../../components/Loading"
-import { Select } from "../../components/Select"
+import { Theme } from "../../components/Theme";
+import * as C from "./styles";
+import { Status } from "../../components/Status";
+import { useAuth } from "../../contexts/auth";
+import { useState, useEffect } from "react";
+import { api } from "../../services/api";
+import { Back } from "../../components/Back";
+import { Loading } from "../../components/Loading";
+import { Select } from "../../components/Select";
+import { Alert } from "../../components/Alert";
 
 export function Orders() {
   const [orders, setOrders] = useState([]);
   const [dishes, setDishes] = useState([]);
-  const { user, setShowLoading, showLoading } = useAuth();
+  const { user, setShowLoading, showLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth();
+  const [isSelected, setIsSelected] = useState(false);
+
 
   const options = [
     { value: 'pendente', label: 'pendente'},
@@ -88,11 +91,13 @@ export function Orders() {
         }
       }
     } catch(error) {
-        if(error.response) {
-          alert(error.response.data.message)
-        } else {
-          console.error(error.message)
-        }
+      if(error.response) {
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
+      } else {
+        setAlertMsg('Não foi possível exibir os pedidos')
+        setSuccess(false)
+      }
     }
 
     setDishes(newDishes)
@@ -111,29 +116,36 @@ export function Orders() {
 }
 
 async function handleSelectStatus(selectedOption, code) {
-  try {
-    await api.patch(`/orders/${code}`, {status: selectedOption.value})
-    alert(`o status do pedido ${code} foi alterado com sucesso!`)
-  } catch(error) {
-    if(error.response) {
-      alert(error.response.data.message)
-    } else {
-      console.error(error.message)
+  setShowLoading(true)
+  setTimeout(async() => {
+    try {
+      await api.patch(`/orders/${code}`, {status: selectedOption.value})
+      setAlertMsg(`o status do pedido ${code} foi alterado com sucesso!`)
+      setSuccess(true)
+      setShowLoading(false)
+    } catch(error) {
+      if(error.response) {
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
+      } else {
+        setAlertMsg('Não foi possível alterar o status do pedido')
+        setSuccess(false)
+      }
     }
-  }
+  }, 2000)
 }
-
   
   useEffect(() => {
     getOrders()
   }, [])
   return (
     <Theme>
+      {
+        showLoading &&
+        <Loading/>
+      }
+      <Alert msg={alertMsg} isSuccess={success}/>
       <C.Container>
-        {
-          showLoading &&
-          <Loading/>
-        }
         <Back/>
         <h2>Meus pedidos</h2>
         <C.Table>
@@ -156,8 +168,9 @@ async function handleSelectStatus(selectedOption, code) {
                 return (
                   <tr key={index}>
                   <td className="status">
-                    { 
-                      user.isAdmin ? <Select options={options} placeholder={order.status} onChange={(selectedOption) => handleSelectStatus(selectedOption, order.code)}/> : <Status status={order.status}/>
+                    { user.isAdmin ?
+                         <Select options={options} placeholder={order.status} onChange={(selectedOption) => handleSelectStatus(selectedOption, order.code)}/>
+                       : <Status status={order.status}/>
                     }
                   </td>
                   <td>{addZeroes(order.code)}</td>

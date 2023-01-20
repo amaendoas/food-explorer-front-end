@@ -5,12 +5,15 @@ import { Input } from "../../components/Input"
 import { Button } from "../../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import { Alert } from "../../components/Alert";
+import { useAuth } from "../../contexts/auth";
 
 export function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { success, alertMsg, setAlertMsg, setSuccess } = useAuth();
 
   function clearInputs() {
     const inputs = document.querySelectorAll('input')
@@ -19,19 +22,24 @@ export function SignUp() {
 
   async function handleSignUp() {
     if(!name || !email || !password) {
-      return alert('Preencha todos os campos!')
+        setAlertMsg('Preencha todos os campos!')
+        setSuccess(false)
+        return
     }
 
     try {
       await api.post("/users", { name, email, password })
-      alert('Usuário cadastrado com sucesso!')
+      setAlertMsg('Usuário cadastrado com sucesso!')
+      setSuccess(true)
       clearInputs()
       navigate("/")
     } catch(error) {
       if(error.response) {
-        alert(error.response.data.message)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        alert("Não foi possível cadastrar")
+        setAlertMsg("Não foi possível cadastrar")
+        setSuccess(false)
       }
     }
 
@@ -39,6 +47,7 @@ export function SignUp() {
 
   return (
     <C.Container>
+      <Alert msg={alertMsg} isSuccess={success}/>
       <C.Logo>
         <img src={logo} alt="logo" />
       </C.Logo>

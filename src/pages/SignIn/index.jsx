@@ -6,12 +6,14 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
 import { useState } from "react";
 import { Loading } from "../../components/Loading";
+import { Alert } from "../../components/Alert";
 
 export function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn, showLoading } = useAuth();
+
+  const { signIn, showLoading, alertMsg, success } = useAuth();
 
   function handleSignIn() {
     signIn({ email, password })
@@ -20,6 +22,7 @@ export function SignIn() {
 
   return (
     <C.Container>
+      <Alert msg={alertMsg} isSuccess={success}/>
       <C.Logo>
         <img src={logo} alt="logo" />
       </C.Logo>
