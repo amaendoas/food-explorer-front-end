@@ -21,12 +21,6 @@ export function SignUp() {
   }
 
   async function handleSignUp() {
-    if(!name || !email || !password) {
-        setAlertMsg('Preencha todos os campos!')
-        setSuccess(false)
-        return
-    }
-
     try {
       await api.post("/users", { name, email, password })
       setAlertMsg('Usuário cadastrado com sucesso!')

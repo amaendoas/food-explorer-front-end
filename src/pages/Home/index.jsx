@@ -43,8 +43,8 @@ export function Home() {
   }, [dishes])
 
   return (
-    <Theme search={setSearch}>
-      <Alert msg={alertMsg} isSuccess={success}/>
+    <Theme search={setSearch} alertMsg={alertMsg} alertSuccess={success}>
+      
       <C.Container>
         <h2>Olá, {user.name}</h2>
           <C.Hero>

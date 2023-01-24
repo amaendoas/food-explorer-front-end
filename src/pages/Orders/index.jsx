@@ -8,12 +8,15 @@ import { Back } from "../../components/Back";
 import { Loading } from "../../components/Loading";
 import { Select } from "../../components/Select";
 import { Alert } from "../../components/Alert";
+import { MdOutlineError, MdDelete } from "react-icons/md"
+import { PopUp } from "../../components/PopUp";
 
 export function Orders() {
   const [orders, setOrders] = useState([]);
   const [dishes, setDishes] = useState([]);
   const { user, setShowLoading, showLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth();
-  const [isSelected, setIsSelected] = useState(false);
+  const [popUpMsg, setPopUpMsg] = useState('');
+  const [orderCode, setOrderCode] = useState(0);
 
 
   const options = [
@@ -38,9 +41,12 @@ export function Orders() {
       setShowLoading(false)
     } catch(error) {
       if(error.response) {
-        console.error(error.response.data)
+        setShowLoading(false)
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
       } else {
-        console.error(error.message)
+        setAlertMsg('Não foi possível exibir os pedidos')
+        setSuccess(false)
       }
     }
   }
@@ -66,11 +72,16 @@ export function Orders() {
     return result
   }
 
-  function getDishes(data) {
+  async function getDishes(data) {
     const userOrders = reduceOrders(data);
-    userOrders.forEach((element) => {
-      getDishName(element)
-    })
+    // console.log(userOrders) 
+    let arr = [];
+    for (let index = 0; index < userOrders.length; index++) {
+      const element = userOrders[index];
+      const dishesName = await getDishName(element)
+        arr.push(...dishesName)
+    }
+    setDishes(arr)
   }
 
   async function getDishName(element) {
@@ -81,6 +92,7 @@ export function Orders() {
       for (let index = 0; index < dishes.length; index++) {
         const { data } = await api.get(`/dishes/${dishes[index].dish_id}`)
         const existing = newDishes.find(el => el.dish_id === dishes[index].dish_id )
+        // console.log('existing', existing)
   
         if(!existing) {
           newDishes.push(
@@ -99,8 +111,9 @@ export function Orders() {
         setSuccess(false)
       }
     }
+    // console.log('newDishes', newDishes)
 
-    setDishes(newDishes)
+    return (newDishes)
   }
 
   function addZeroes(num) {
@@ -134,6 +147,34 @@ async function handleSelectStatus(selectedOption, code) {
     }
   }, 2000)
 }
+
+  function handleShowPopUp(code) {
+    setPopUpMsg('Tem certeza que deseja excluir esse pedido? Essa ação não pode ser desfeita')
+    setOrderCode(code)
+  }
+
+  function handleClosePopUP() {
+    setPopUpMsg('')
+    setOrderCode('')
+  }
+
+  async function handleDeleteOrder() {
+    try {
+      await api.delete(`/orders/${orderCode}`)
+      setAlertMsg(`Pedido deletado com sucesso!`)
+      setSuccess(true)
+      setPopUpMsg('')
+      getOrders()
+    } catch(error) {
+      if(error.response) {
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
+      } else {
+        setAlertMsg('Não foi possível deletar esse pedido')
+        setSuccess(false)
+      }
+    }
+  }
   
   useEffect(() => {
     getOrders()
@@ -143,6 +184,9 @@ async function handleSelectStatus(selectedOption, code) {
       {
         showLoading &&
         <Loading/>
+      }
+      {
+       popUpMsg && <PopUp popUpMsg={popUpMsg} confirmMsg="Excluir" onClose={handleClosePopUP} onConfirm={handleDeleteOrder}/>
       }
       <Alert msg={alertMsg} isSuccess={success}/>
       <C.Container>
@@ -155,12 +199,13 @@ async function handleSelectStatus(selectedOption, code) {
               <th>Código</th>
               <th>Detalhamento</th>
               <th>Data e hora</th>
+              { user.isAdmin ? <th></th> : <></>}
             </tr>
           </thead>
           <tbody>
             { orders.length === 0 &&
               <tr>
-                <td colSpan={4} className="no-orders">Nenhum pedido ainda</td>
+                <td colSpan={5} className="no-orders">Nenhum pedido ainda</td>
               </tr>
             }
             { orders && dishes &&
@@ -182,11 +227,18 @@ async function handleSelectStatus(selectedOption, code) {
                           return (
                             <p key={index}>{element.dish_quant} x {existing.dish_name}</p>
                             )
-                        }
+                          }
+                          if(!existing) {
+                            return (
+                              <p key={index} style={{ color: '#92000E', display: 'flex', alignItems: 'center', gap: '10px'}}> <MdOutlineError size={20}/> Prato não existe mais!</p>
+                            )
+                          }
+
                       })
                     }
                     </td>
                   <td>{order.created_at}</td>
+                  { user.isAdmin ? <td><button id="trash" onClick={() => handleShowPopUp(order.code)}><MdDelete size={22}/></button></td> : <></>}
                   </tr>
                 )
               })

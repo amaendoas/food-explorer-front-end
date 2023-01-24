@@ -25,4 +25,9 @@ export const Table = styled.table`
     text-align: center;
   }
 
+  #trash {
+    width: 100%;
+    color: ${({theme}) => theme.COLORS.RED};
+  }
+
 `

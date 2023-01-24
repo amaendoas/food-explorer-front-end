@@ -132,11 +132,17 @@ export const Payment = styled.div`
     width: 100%;
     padding: 0 calc(2rem + 4vw);
 
+    .approved {
+      svg {
+        font-size: calc(3rem + 4vw);
+      }
+    }
+
     .waiting, .pix, .credit, .approved {
       height: 100%;
 
       p ~ svg {
-        font-size: calc(3rem + 4vw);
+        font-size: calc(5rem + 4vw);
       }
 
       button { 

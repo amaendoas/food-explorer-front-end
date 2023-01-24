@@ -43,7 +43,8 @@ export function Cart() {
     setPayment(statePayment)
   }
 
-  async function newOrder() {
+  async function newOrder(e) {
+    e.preventDefault()
     setShowLoading(true)
     try {
       await api.post('/orders', newOrderItems(items))

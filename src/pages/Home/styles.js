@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  #alert {
+  /* #alert {
     position: sticky;
     top: 15px;
-  }
+  } */
 `
 
 export const Hero = styled.div`
