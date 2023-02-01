@@ -13,6 +13,9 @@ function FavsProvider({children}) {
     api.get(`/favorites/${user_id}`)
     .then((res) => {
       localStorage.setItem("@foodexplorer: favs", JSON.stringify(res.data));
+      if(favsList.length === 0 && res.data.length > 0) {
+        setFavsList(res.data)
+      }
     })
     .catch((error) => {
       if(error.response) {
