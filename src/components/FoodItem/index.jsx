@@ -46,11 +46,12 @@ export function FoodItem({dish}) {
       setDishFav()
     }
   }
-
+  
+  
   useEffect(() => {
+    isDishFav()
     newFavsList(user.id)
     newCart()
-    isDishFav()
   }, [cart, favsList])
   
   

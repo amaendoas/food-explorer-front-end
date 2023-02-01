@@ -23,7 +23,8 @@ function FavsProvider({children}) {
       }
     });
   }
-  
+
+
   useEffect(() => {
     const userFavs = JSON.parse(localStorage.getItem("@foodexplorer: favs"));
 

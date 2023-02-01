@@ -73,15 +73,12 @@ export function Orders() {
   }
 
   async function getDishes(data) {
-    const userOrders = reduceOrders(data);
-    // console.log(userOrders) 
-    let arr = [];
+    const userOrders = reduceOrders(data); 
     for (let index = 0; index < userOrders.length; index++) {
       const element = userOrders[index];
       const dishesName = await getDishName(element)
-        arr.push(...dishesName)
+        setDishes(prevState => [...prevState, ...dishesName])
     }
-    setDishes(arr)
   }
 
   async function getDishName(element) {
@@ -92,7 +89,6 @@ export function Orders() {
       for (let index = 0; index < dishes.length; index++) {
         const { data } = await api.get(`/dishes/${dishes[index].dish_id}`)
         const existing = newDishes.find(el => el.dish_id === dishes[index].dish_id )
-        // console.log('existing', existing)
   
         if(!existing) {
           newDishes.push(
@@ -111,7 +107,6 @@ export function Orders() {
         setSuccess(false)
       }
     }
-    // console.log('newDishes', newDishes)
 
     return (newDishes)
   }
@@ -179,6 +174,7 @@ async function handleSelectStatus(selectedOption, code) {
   useEffect(() => {
     getOrders()
   }, [])
+  
   return (
     <Theme>
       {

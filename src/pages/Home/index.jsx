@@ -6,7 +6,6 @@ import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
 import { Loading } from "../../components/Loading"
-import { Alert } from "../../components/Alert";
 import Carousel from "react-elastic-carousel";
 
 export function Home() {
@@ -44,7 +43,6 @@ export function Home() {
 
   return (
     <Theme search={setSearch} alertMsg={alertMsg} alertSuccess={success}>
-      
       <C.Container>
         <h2>Olá, {user.name}</h2>
           <C.Hero>

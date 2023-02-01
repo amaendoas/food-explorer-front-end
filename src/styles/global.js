@@ -99,7 +99,6 @@ export default createGlobalStyle`
 input[type="number"] {
   -moz-appearance: textfield;
 }
-
   @keyframes slideUp {
     0% {
       transform: translateY(-10px);

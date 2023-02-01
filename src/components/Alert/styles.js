@@ -1,10 +1,18 @@
 import styled, { keyframes } from "styled-components";
 
-const slide = keyframes`
+const slideIn = keyframes`
   from {
     transform: translateY(-50px);
   } to {
     transform: translateY(0);
+  }
+`
+
+const slideOut = keyframes`
+from {
+    transform: translateY(0px);
+  } to {
+    transform: translateY(-50px);
   }
 `
 
@@ -25,7 +33,7 @@ export const Container = styled.div`
   -moz-box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);
   box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);
   font-size: 1.6rem;
-  animation: ${slide} 1s;
+  animation: ${slideIn} 1s;
 
   svg {
     font-size: 2.5rem;

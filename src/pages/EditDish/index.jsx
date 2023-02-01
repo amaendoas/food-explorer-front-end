@@ -62,11 +62,9 @@ export function EditDish() {
   async function getIngredients() {
     try {
       const { data } = await api.get(`/ingredients/${params.id}`)
-      let ingredients = [];
       data.forEach(ingredient => {
-        ingredients.push(ingredient.name)
+        setIngredients(prevState => [...prevState, ingredient.name])
       });
-      setIngredients(ingredients)
     } catch(error) {
       if(error.response) {
         setAlertMsg(error.response.data.message)

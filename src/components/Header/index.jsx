@@ -5,7 +5,7 @@ import { Button } from "../Button"
 import { BsSearch, BsReceipt} from "react-icons/bs"
 import {MdOutlineLogout, MdOutlineMenu, MdClear, MdAddCircleOutline, MdShoppingCart} from "react-icons/md"
 import { useAuth } from "../../contexts/auth"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../../contexts/cart"
 import { useNavigate } from "react-router-dom"
 import { NotificationIcon } from "../NotificationIcon"
@@ -21,17 +21,26 @@ export function Header({search}) {
     signOut()
   }
 
+  useEffect(() => {
+    if(show) {
+      document.body.classList.add('suppress-scroll')
+    } else {
+      document.body.classList.remove('suppress-scroll')
+    }
+  }, [show])
+
   return(
     <C.Container>
       <Link to="/">
       <img src={logo} alt="logo" />
       </Link>
       {
-        show && <div className="overlay" onClick={() => {setShow(!show)}}></div> 
+        show && <div className="overlay" onClick={() => {
+          setShow(!show)
+        }}></div> 
       }
       <button className="button-menu" onClick={() => {
         setShow(!show)
-        document.body.classList.toggle('suppress-scroll')
         }}>
         {show ? <MdClear/> : <MdOutlineMenu/>}
       </button>

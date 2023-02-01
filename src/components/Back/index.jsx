@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export function Back() {
   const navigate = useNavigate();
   return(
-    <C.Container onClick={() => navigate("/")}>
+    <C.Container onClick={() => navigate(-1)}>
       <MdKeyboardArrowLeft/>
       <span>voltar</span>
     </C.Container>
