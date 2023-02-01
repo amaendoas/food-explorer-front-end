@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 100%;
-`
+  height: 60vh;
+  `
 export const Content = styled.div`
   display: flex;
+  overflow-y: scroll;
+  height: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem 0;
 
   .rec-pagination {
     display: none;
@@ -18,5 +24,4 @@ export const Content = styled.div`
     filter: brightness(1.1);
     background-color: ${({theme}) => theme.COLORS.BACKGROUND_800};
   }
-
 `

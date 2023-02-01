@@ -41,6 +41,20 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: ${({theme}) => theme.COLORS.BACKGROUND_800};
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: ${({theme}) => theme.COLORS.SECONDARY};
+  border-radius: 20px;
+  box-shadow: #054857 -3px -3px 2px 1px inset
+}
+
   body {
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
     font-family: 'Poppins', sans-serif;

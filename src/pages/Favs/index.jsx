@@ -22,6 +22,7 @@ export function Favs() {
 
   function getFavsDishes() {
     setShowLoading(true)
+    setFavDishes([])
     favsList.map(fav => {
       api.get(`/dishes/${fav.dish_id}`)
       .then((res) => setFavDishes(prevState => [...prevState, res.data]))
@@ -42,7 +43,7 @@ export function Favs() {
   
   useEffect(() => {
     getFavsDishes()
-  }, [])
+  }, [favsList])
   return (
       <Theme>
         { showLoading && <Loading/> }
@@ -53,8 +54,6 @@ export function Favs() {
             {
               favsList.length === 0 ? <h3>Nenhum favorito cadastrado</h3> :
 
-              <Carousel breakPoints={breakPoints}>
-                {
                   favDishes.map((fav, index) => (
                     <FoodItem
                     key={fav.id}
@@ -62,8 +61,6 @@ export function Favs() {
                     />
                   )
                 )
-                }
-              </Carousel>
             }
           </C.Content>
         </C.Container>
