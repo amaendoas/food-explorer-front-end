@@ -19,6 +19,7 @@ from {
 export const Container = styled.div`
   position: fixed;
   right: 0;
+  top: 0;
   z-index: 100;
   margin: 1rem;
   padding: 1.2rem;
