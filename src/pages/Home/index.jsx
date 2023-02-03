@@ -5,8 +5,8 @@ import { FoodItem } from "../../components/FoodItem";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/auth";
-import { Loading } from "../../components/Loading"
-import Carousel from "react-elastic-carousel";
+import { Loading } from "../../components/Loading";
+import { Carousel } from "../../components/Carousel";
 
 export function Home() {
   const breakPoints = [
@@ -58,8 +58,8 @@ export function Home() {
               filterDishes('main').length === 0
               ?
               <p className="default-msg">Nenhum prato principal encontrado.</p>
-              :
-              <Carousel breakPoints={breakPoints}>
+              : 
+              <Carousel>
                 {filterDishes('main').map(dish => 
                   (
                     <FoodItem
@@ -77,7 +77,7 @@ export function Home() {
               ?
               <p className="default-msg">Nenhuma sobremesa encontrada.</p>
               :
-              <Carousel breakPoints={breakPoints}>
+              <Carousel>
                 {filterDishes('dessert').map(dish => 
                   (
                     <FoodItem
@@ -94,7 +94,7 @@ export function Home() {
               filterDishes('drink').length === 0
               ? <p className="default-msg">Nenhuma bebida encontrada.</p>
               :
-              <Carousel breakPoints={breakPoints}>
+              <Carousel>
                 {filterDishes('drink').map(dish => 
                   (
                     <FoodItem

@@ -11,7 +11,6 @@ export const Container = styled.div`
   padding: 0 2rem;
   text-align: center;
   gap: 1.3rem;
-  margin-left: 5rem;
   border: 1px solid ${({ theme }) => theme.COLORS.BACKGROUND_800};
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);

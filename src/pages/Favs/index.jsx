@@ -5,7 +5,6 @@ import { useFavs } from "../../contexts/favs";
 import { api } from "../../services/api";
 import { FoodItem } from "../../components/FoodItem";
 import { Back } from "../../components/Back";
-import Carousel from "react-elastic-carousel";
 import { useAuth } from "../../contexts/auth";
 import { Loading } from "../../components/Loading"
 
