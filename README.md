@@ -30,14 +30,21 @@
 
 ## :books: Como executar
 
-Para visualizar siga os passos abaixo: 
-- Você deve ter o Git Bash instalado em seu computador (clique <a href="https://git-scm.com/download/win">aqui</a>);
-- Crie uma pasta em seu computador;
-- Abra o Git Bash dentro deste diretório;
-- Utilize o comando "git clone https://github.com/amaendoas/food-explorer-front-end.git".
-- Abra o editor de código e digite `npm install` no terminal para instalar as dependências;
-- Para iniciar digite no terminal `npm run dev`;
+```bash
+#Crie uma pasta em seu computador e acesse a pasta em seu terminal
+$ cd food-explorer-backend
 
+# Clone esse repositório
+$ git clone https://github.com/amaendoas/food-explorer-backend.git
+
+# Instale as dependências
+$ npm install
+
+# Rode a aplicação em ambiente de desenvolvimento
+$ npm run dev
+
+# The Server will start at port: 3333 - go to http://localhost:3333
+```
 ---
 
 ## :hammer: Tecnologias
@@ -59,9 +66,11 @@ Ferramentas utilizadas no desenvolvimento do projeto:
 
 ## :mag: Observações
 
-- Login como admin
-- <b>usuário:</b> adm@foodexplorer.com
-- <b>senha:</b> 040566
+```bash
+# Admin login
+$ email: adm@foodexplorer.com
+$ password: 040566
+```
 
 ---
 
