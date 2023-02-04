@@ -43,7 +43,7 @@ $ npm install
 # Rode a aplicação em ambiente de desenvolvimento
 $ npm run dev
 
-# O servidor irá iniciar na porta 5173 vá para http://localhost:5173/
+# O página irá abrir na porta 5173 vá para http://localhost:5173/
 ```
 ---
 
