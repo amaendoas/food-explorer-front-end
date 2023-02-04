@@ -60,7 +60,7 @@ Ferramentas utilizadas no desenvolvimento do projeto:
 ## :hammer: Utilitários
 
 - Deploy: https://the-food-explorer.netlify.app/
-- Repo do front-end: [**back-end**](https://github.com/amaendoas/food-explorer-backend)
+- Repo do back-end: [**back-end**](https://github.com/amaendoas/food-explorer-backend)
 
 ---
 
