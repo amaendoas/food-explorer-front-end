@@ -32,10 +32,10 @@
 
 ```bash
 #Crie uma pasta em seu computador e acesse a pasta em seu terminal
-$ cd food-explorer-backend
+$ cd food-explorer-front-end
 
 # Clone esse repositório
-$ git clone https://github.com/amaendoas/food-explorer-backend.git
+$ git clone https://github.com/amaendoas/food-explorer-front-end.git
 
 # Instale as dependências
 $ npm install
