@@ -9,6 +9,7 @@ import { Select } from "../../components/Select";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
 import { Alert } from "../../components/Alert";
+import { Loading } from "../../components/Loading";
 
 export function AddDish() {
 
@@ -20,7 +21,7 @@ export function AddDish() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
-  const { success, alertMsg, setAlertMsg, setSuccess } = useAuth();
+  const { success, alertMsg, setAlertMsg, setSuccess, setShowLoading, showLoading } = useAuth();
 
   const navigate = useNavigate();
 
@@ -72,6 +73,7 @@ export function AddDish() {
   }
 
   function handleAddDish(par_file) {
+    setShowLoading(true)
     api.post('/dishes', {
       name,
       description,
@@ -83,10 +85,12 @@ export function AddDish() {
         const fileUploadForm = new FormData();
         fileUploadForm.append('image', par_file)
         api.patch(`/dishes/image/${res.data[0].id}`, fileUploadForm).then(() => {
+          setShowLoading(false)
           setAlertMsg('Prato adicionado com sucesso!')
           setSuccess(true)
           navigate('/')
         }).catch((error) => {
+          setShowLoading(false)
           if(error.response) {
             setAlertMsg(error.response.data.message)
             setSuccess(false)
@@ -95,12 +99,14 @@ export function AddDish() {
           }
         })
       } else {
+        setShowLoading(false)
         setAlertMsg('Prato adicionado com sucesso!')
         setSuccess(true)
         navigate('/')
         return
       }
     }).catch((error) => {
+      setShowLoading(false)
       if(error.response) {
         setAlertMsg(error.response.data.message)
         setSuccess(false)
@@ -112,6 +118,10 @@ export function AddDish() {
   }
   return (
     <Theme>
+      {
+        showLoading &&
+        <Loading/>
+      }
       <C.Container>
       <Alert msg={alertMsg} isSuccess={success}/>
         <Back/>

@@ -114,7 +114,7 @@ export function EditDish() {
   }
 
   function handleUpdateDish(par_file) {
-
+    setShowLoading(true)
     try {
       api.put(`/dishes/${dish.id}`, {
         name,
@@ -128,10 +128,12 @@ export function EditDish() {
         const fileUploadForm = new FormData();
         fileUploadForm.append('image', par_file)
         api.patch(`/dishes/image/${dish.id}`, fileUploadForm).then(() => {
+          setShowLoading(false)
           setAlertMsg('Prato adicionado com sucesso!')
           setSuccess(true)
           navigate('/')
         }).catch((error) => {
+          setShowLoading(false)
           if(error.response) {
             setAlertMsg(error.response.data.message)
             setSuccess(false)
@@ -141,12 +143,14 @@ export function EditDish() {
           }
         })
       } else {
+        setShowLoading(false)
         setAlertMsg('Prato adicionado com sucesso!')
         setSuccess(true)
         navigate('/')
         return
       }   
     } catch(error) {
+      setShowLoading(false)
       if(error.response) {
         setAlertMsg(error.response.data.message)
         setSuccess(false)
@@ -158,12 +162,15 @@ export function EditDish() {
   }
 
   function handleDeleteDish() {
+    setShowLoading(true)
     try {
       api.delete(`/dishes/${dish.id}`)
+      setShowLoading(false)
       setAlertMsg('Prato deletado com sucesso!')
       setSuccess(true)
       navigate("/")
     } catch(error) {
+      setShowLoading(false)
       if(error.response) {
         setAlertMsg(error.response.data.message)
         setSuccess(false)
