@@ -20,12 +20,16 @@ export function Carousel({children}) {
 
   return (
     <C.Container>
-        <button className="prev" onClick={handleLeftClick}>
-          <MdArrowBack/>
-        </button>
-        <button className="next" onClick={handleRightClick}>
-          <MdArrowForward/>
-        </button>
+        <div className="prev">
+          <button onClick={handleLeftClick}>
+            <MdArrowBack/>
+          </button>
+        </div>
+        <div className="next">
+          <button onClick={handleRightClick}>
+            <MdArrowForward/>
+          </button>
+        </div>
       <div className="carousel" ref={carousel}  whileTap={{ cursor: "grabbing"}}>
         <div
         className="inner"
