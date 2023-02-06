@@ -50,6 +50,9 @@ export function Orders() {
   }
 
   function reduceOrders(arr) {
+    if(arr.length === 0) {
+      setShowLoading(false)
+    }
     const result = arr.reduce((acc, curr) => {
       const existing = acc.find(el => el.code === curr.code);
       if (existing) {
