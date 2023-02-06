@@ -16,7 +16,7 @@ export const Container = styled.div`
    .inner {
      display: flex;
      align-items: center;
-     justify-content: center;
+     justify-content: start;
      gap: 5rem;
    }
 
@@ -25,7 +25,6 @@ export const Container = styled.div`
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     font-size: 3rem;
     width: 8rem;
     cursor: pointer;
@@ -35,9 +34,11 @@ export const Container = styled.div`
    .next {
     right: -20px;
     background: linear-gradient(90deg, rgba(0, 10, 15, 0.25) 0%, #000A0F 100%);
-   }
-
-   .prev {
+    justify-content: end;
+  }
+  
+  .prev {
+    justify-content: start;
     left: -20px;
     background: linear-gradient(270deg, rgba(0, 10, 15, 0.25) 0%, #000A0F 100%);
    }
