@@ -30,7 +30,7 @@ export function Carousel({children}) {
             <MdArrowForward/>
           </button>
         </div>
-      <div className="carousel" ref={carousel}  whileTap={{ cursor: "grabbing"}}>
+      <div className="carousel" ref={carousel}>
         <div
         className="inner"
         >
