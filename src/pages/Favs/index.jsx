@@ -9,12 +9,6 @@ import { useAuth } from "../../contexts/auth";
 import { Loading } from "../../components/Loading"
 
 export function Favs() {
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 }
-  ];
   const { favsList } = useFavs();
   const { setShowLoading, showLoading, setAlertMsg, setSuccess} = useAuth()
   const [ favDishes, setFavDishes] = useState([]);
@@ -24,7 +18,10 @@ export function Favs() {
     setFavDishes([])
     favsList.map(fav => {
       api.get(`/dishes/${fav.dish_id}`)
-      .then((res) => setFavDishes(prevState => [...prevState, res.data]))
+      .then((res) => {
+        setFavDishes(prevState => [...prevState, res.data])
+        setShowLoading(false)
+      })
       .catch((error) => {
         setShowLoading(false)
       if(error.response) {
@@ -37,7 +34,6 @@ export function Favs() {
       })
     }
     )
-    setShowLoading(false)
   }
   
   useEffect(() => {

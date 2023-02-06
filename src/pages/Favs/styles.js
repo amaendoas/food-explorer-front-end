@@ -10,7 +10,7 @@ export const Content = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 5rem 0;
+  gap: 4rem;
 
   .rec-pagination {
     display: none;

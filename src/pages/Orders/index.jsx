@@ -34,14 +34,12 @@ export function Orders() {
       } else {
         res = await api.get(`/orders/${user.id}`)
       }
-
       const data = res.data;
       getDishes(data)
       setOrders(reduceOrders(data))
-      setShowLoading(false)
     } catch(error) {
+      setShowLoading(false)
       if(error.response) {
-        setShowLoading(false)
         setAlertMsg(error.response.data.message)
         setSuccess(false)
       } else {
@@ -84,7 +82,7 @@ export function Orders() {
   async function getDishName(element) {
     let newDishes = []
     const dishes = element.dishes
-
+    setShowLoading(true)
     try {
       for (let index = 0; index < dishes.length; index++) {
         const { data } = await api.get(`/dishes/${dishes[index].dish_id}`)
@@ -98,7 +96,9 @@ export function Orders() {
             })
         }
       }
+      setShowLoading(false)
     } catch(error) {
+      setShowLoading(false)
       if(error.response) {
         setAlertMsg(error.response.data.message)
         setSuccess(false)
@@ -188,59 +188,59 @@ async function handleSelectStatus(selectedOption, code) {
       <C.Container>
         <Back/>
         <h2>Meus pedidos</h2>
-        <C.Table>
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Código</th>
-              <th>Detalhamento</th>
-              <th>Data e hora</th>
-              { user.isAdmin ? <th></th> : <></>}
-            </tr>
-          </thead>
-          <tbody>
-            { orders.length === 0 &&
+        <C.Content>
+          <C.Table>
+            <thead>
               <tr>
-                <td colSpan={5} className="no-orders">Nenhum pedido ainda</td>
+                <th>Status</th>
+                <th>Código</th>
+                <th>Detalhamento</th>
+                <th>Data e hora</th>
+                { user.isAdmin ? <th></th> : <></>}
               </tr>
-            }
-            { orders && dishes &&
-              orders.map((order, index) => {
-                return (
-                  <tr key={index}>
-                  <td className="status">
-                    { user.isAdmin ?
-                         <Select options={options} placeholder={order.status} onChange={(selectedOption) => handleSelectStatus(selectedOption, order.code)}/>
-                       : <Status status={order.status}/>
-                    }
-                  </td>
-                  <td>{addZeroes(order.code)}</td>
-                  <td>
-                    {
-                      order.dishes.map((element, index) => {
-                        const existing = dishes.find(el => el.dish_id === element.dish_id )
-                        if(existing) {
-                          return (
-                            <p key={index}>{element.dish_quant} x {existing.dish_name}</p>
-                            )
-                          }
-                          if(!existing) {
-                            return (
-                              <p key={index} style={{ color: '#92000E', display: 'flex', alignItems: 'center', gap: '10px'}}> <MdOutlineError size={20}/> Prato não existe mais!</p>
-                            )
-                          }
-
-                      })
-                    }
+            </thead>
+            <tbody>
+              { orders.length === 0 &&
+                <tr>
+                  <td colSpan={5} className="no-orders">Nenhum pedido ainda</td>
+                </tr>
+              }
+              { orders && dishes &&
+                orders.map((order, index) => {
+                  return (
+                    <tr key={index}>
+                    <td className="status">
+                      { user.isAdmin ?
+                          <Select options={options} placeholder={order.status} onChange={(selectedOption) => handleSelectStatus(selectedOption, order.code)}/>
+                        : <Status status={order.status}/>
+                      }
                     </td>
-                  <td>{order.created_at}</td>
-                  { user.isAdmin ? <td><button id="trash" onClick={() => handleShowPopUp(order.code)}><MdDelete size={22}/></button></td> : <></>}
-                  </tr>
-                )
-              })
-            }
-          </tbody>
-        </C.Table>
+                    <td>{addZeroes(order.code)}</td>
+                    <td>
+                      {
+                        order.dishes.map((element, index) => {
+                          const existing = dishes.find(el => el.dish_id === element.dish_id )
+                          if(existing) {
+                            return (
+                              <p key={index}>{element.dish_quant} x {existing.dish_name}</p>
+                              )
+                            } else {
+                              return (
+                                <p key={index} style={{ color: '#92000E', display: 'flex', alignItems: 'center', gap: '10px'}}> <MdOutlineError size={20}/> Prato não existe mais!</p>
+                              )
+                            }
+                        })
+                      }
+                      </td>
+                    <td>{order.created_at}</td>
+                    { user.isAdmin ? <td><button id="trash" onClick={() => handleShowPopUp(order.code)}><MdDelete size={22}/></button></td> : <></>}
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </C.Table>
+        </C.Content>
       </C.Container>
     </Theme>
   )

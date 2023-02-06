@@ -5,7 +5,7 @@ export function Loading({...rest}) {
   return (
     <C.Container id="loading">
       <ClipLoader color={'#82F3FF'} {...rest}/>
-      <p>Loading...</p>
+      <p>Carregando...</p>
       </C.Container>
   )
 }

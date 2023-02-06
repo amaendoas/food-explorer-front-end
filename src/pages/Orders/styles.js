@@ -12,7 +12,6 @@ export const Container = styled.div`
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  overflow-y: auto;
 
   th, td {
     height: fit-content;
@@ -30,4 +29,9 @@ export const Table = styled.table`
     color: ${({theme}) => theme.COLORS.RED};
   }
 
+`
+
+export const Content = styled.div`
+  max-height: 60vh;
+  overflow-y: auto;
 `

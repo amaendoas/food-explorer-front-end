@@ -20,7 +20,7 @@ export const Container = styled.div`
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   margin: 1rem;
   padding: 1.2rem;
   border-left: 8px solid ${({theme, isSuccess}) => isSuccess ? theme.COLORS.GREEN : theme.COLORS.RED};

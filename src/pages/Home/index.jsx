@@ -9,37 +9,36 @@ import { Loading } from "../../components/Loading";
 import { Carousel } from "../../components/Carousel";
 
 export function Home() {
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 }
-  ];
   const [dishes, setDishes] = useState([]);
-  const { user, showLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth();
+  const { user, showLoading, setShowLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth();
   const [ search, setSearch ] = useState("");
 
   function filterDishes(category) {
     return dishes.filter((item) => item.category === category)
   }
   
-  useEffect(() => {
-    async function getDishes() {
-      try {
-        const response = await api.get(`/dishes?name=${search}`)
-        setDishes(response.data)
-      } catch(error) {
-        if(error.response) {
-          setAlertMsg(error.response.data.message)
-          setSuccess(false)
-        } else {
-          setAlertMsg('Não foi possível exibir os pratos')
-          setSuccess(false)
-        }
+  
+  async function getDishes() {
+    setShowLoading(true)
+    try {
+      const response = await api.get(`/dishes?name=${search}`)
+      setDishes(response.data)
+      setShowLoading(false)
+    } catch(error) {
+      setShowLoading(false)
+      if(error.response) {
+        setAlertMsg(error.response.data.message)
+        setSuccess(false)
+      } else {
+        setAlertMsg('Não foi possível exibir os pratos')
+        setSuccess(false)
       }
     }
+  }
+
+  useEffect(() => {
     getDishes()
-  }, [dishes])
+  }, [])
 
   return (
     <Theme search={setSearch} alertMsg={alertMsg} alertSuccess={success}>
