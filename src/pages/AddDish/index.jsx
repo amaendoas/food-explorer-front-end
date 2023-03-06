@@ -2,10 +2,9 @@ import * as C from "./styles";
 import { Theme } from "../../components/Theme";
 import { Back } from "../../components/Back";
 import { Input } from "../../components/Input"
-import { IngredientItem } from "../../components/IngredientItem";
 import { useState } from "react";
 import { api } from "../../services/api";
-import { Select } from "../../components/Select";
+import { CreateSelect, Select } from "../../components/Select";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
 import { Alert } from "../../components/Alert";
@@ -14,7 +13,6 @@ import { Loading } from "../../components/Loading";
 export function AddDish() {
 
   const [ingredients, setIngredients] = useState([]);
-  const [newIngredient, setNewIngredient] = useState("");
   const [name, setName] = useState('')
   const [showWarning, setShowWarning] = useState(false);
   const [category, setCategory] = useState('');
@@ -25,27 +23,40 @@ export function AddDish() {
 
   const navigate = useNavigate();
 
-  const options = [
+  const categoryOptions = [
     { value: 'main', label: 'Pratos Principais'},
     { value: 'drink', label: 'Bebidas'},
     { value: 'dessert', label: 'Sobremesas'}
   ]
 
+  const ingredientsOptions = [
+    { value: 'alface', label: 'alface'},
+    { value: 'ameixa', label: 'ameixa'},
+    { value: 'amêndoas', label: 'amêndoas'},
+    { value: 'aniz', label: 'aniz'},
+    { value: 'café', label: 'café'},
+    { value: 'camarão', label: 'camarão'},
+    { value: 'canela', label: 'canela'},
+    { value: 'damasco', label: 'damasco'},
+    { value: 'farinha', label: 'farinha'},
+    { value: 'limão', label: 'limão'},
+    { value: 'maçã', label: 'maçã'},
+    { value: 'maracujá', label: 'maracujá'},
+    { value: 'massa', label: 'massa'},
+    { value: 'pão', label: 'maracujá'},
+    { value: 'pão naan', label: 'pão naan'},
+    { value: 'pepino', label: 'pepino'},
+    { value: 'pêssego', label: 'pêssego'},
+    { value: 'pesto', label: 'pesto'},
+    { value: 'presunto', label: 'presunto'},
+    { value: 'rabanete', label: 'rabanete'},
+    { value: 'rúcula', label: 'rúcula'},
+    { value: 'tomate', label: 'tomate'},
+    { value: 'whiskey', label: 'whiskey'}
+  ]
+
   function handleSelectCategory(selectedOption) {
     setCategory(selectedOption.value)
-  }
-
-  function handleAddIngredient() {
-    if(newIngredient === '') {
-      setShowWarning(true)
-      return
-    }
-    setIngredients(prevState => [...prevState, newIngredient]);
-    setNewIngredient("");
-  }
-
-  function handleRemoveIngredient(deleted) {
-    setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted))
   }
   
   function handlePrice(event) {
@@ -70,6 +81,10 @@ export function AddDish() {
   function handleAddImage(e) {
     const file = e.target.files[0];
     setFile(file)
+  }
+
+  function handleAddIngredients(selectedIngredients) {
+    setIngredients(selectedIngredients.map(ingredient => ingredient.value))
   }
 
   function handleAddDish(par_file) {
@@ -129,34 +144,19 @@ export function AddDish() {
         <C.Content>
           <div className="inputs-container">
             <Input type="file" title="Imagem do Prato" placeholder="Selecione a imagem" imgDish={file} onChange={handleAddImage}/>
-            <Input type="text" title="Nome" placeholder="Ex: Sala Ceasar" value={name} onChange={(e) => setName(e.target.value)}/>
+            <Input type="text" title="Nome" placeholder="Ex: Salada Ceasar" value={name} onChange={(e) => setName(e.target.value)}/>
           </div>
           
           <div className="inputs-container">
             <div className="input-wrapper">
-              <label htmlFor="ingredients">Ingredients</label>
+              <label htmlFor="ingredients">Ingredientes</label>
               <div className="ingredients-wrapper">
-                <IngredientItem
-                isNew
-                placeholder="Novo ingrediente"
-                value={newIngredient}
-                onChange={(e) => {
-                  setShowWarning(false)
-                  setNewIngredient(e.target.value)
-                }}
-                onClick={handleAddIngredient}
+                <CreateSelect
+                  options={ingredientsOptions}
+                  placeholder="Selecione ou digite os ingredientes"
+                  isMulti
+                  onChange={handleAddIngredients}
                 />
-                {
-                  ingredients.map((ingredient, index) => {
-                    return (
-                      <IngredientItem
-                      key={index}
-                      value={ingredient}
-                      onClick={() => handleRemoveIngredient(ingredient)}
-                      />
-                    )
-                  })
-                }
               </div>
               {
                 showWarning &&
@@ -166,7 +166,7 @@ export function AddDish() {
             <Input title="Preço" type="text" className="price" onChange={handlePrice}/>
             <div className="category-wrapper">
               <label htmlFor="categoria">Categoria</label>
-              <Select options={options} placeholder="Selecione uma categoria" onChange={handleSelectCategory}/>
+              <Select options={categoryOptions} placeholder="Selecione uma categoria" onChange={handleSelectCategory}/>
             </div>
           </div>
           <div className="input-wrapper">

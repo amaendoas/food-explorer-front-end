@@ -46,22 +46,12 @@ export const Content = styled.div `
   }
 
   .ingredients-wrapper {
-    display: flex;
-    width: fit-content;
-    flex-wrap: wrap;
-    gap: 1rem;
-    height: fit-content;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    position: relative;
+    height: 4.2rem;
   }
   
   textarea {
     height: 10rem;
     padding: 1rem;
-  }
-  
-  .ingredients-wrapper, textarea {
     border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
     width: 100%;
     border-radius: 5px;
