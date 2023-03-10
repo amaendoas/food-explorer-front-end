@@ -2,24 +2,16 @@ import styled, { keyframes } from "styled-components";
 
 const slideIn = keyframes`
   from {
-    transform: translateY(-50px);
+    transform: translateX(150px);
   } to {
-    transform: translateY(0);
-  }
-`
-
-const slideOut = keyframes`
-from {
-    transform: translateY(0px);
-  } to {
-    transform: translateY(-50px);
+    transform: translateX(0);
   }
 `
 
 export const Container = styled.div`
   position: fixed;
   right: 0;
-  top: 0;
+  top: 50px;
   z-index: 1000;
   margin: 1rem;
   padding: 1.2rem;

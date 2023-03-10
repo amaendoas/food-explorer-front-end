@@ -4,7 +4,7 @@ import { Status } from "../../components/Status";
 import { useAuth } from "../../contexts/auth";
 import { useState, useEffect } from "react";
 import { api } from "../../services/api";
-import { Back } from "../../components/Back";
+import { BackButton } from "../../components/BackButton";
 import { Loading } from "../../components/Loading";
 import { Select } from "../../components/Select";
 import { Alert } from "../../components/Alert";
@@ -189,7 +189,7 @@ async function handleSelectStatus(selectedOption, code) {
       }
       <Alert msg={alertMsg} isSuccess={success}/>
       <C.Container>
-        <Back/>
+        <BackButton/>
         <h2>Meus pedidos</h2>
         <C.Content>
           <C.Table>

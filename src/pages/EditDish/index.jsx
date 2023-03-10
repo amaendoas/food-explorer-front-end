@@ -1,6 +1,6 @@
 import * as C from "./styles"
 import { Theme } from "../../components/Theme";
-import { Back } from "../../components/Back";
+import { BackButton } from "../../components/BackButton";
 import { Input } from "../../components/Input"
 import { IngredientItem } from "../../components/IngredientItem";
 import { useState } from "react";
@@ -13,16 +13,16 @@ import { Loading } from "../../components/Loading";
 import { Alert } from "../../components/Alert";
 
 export function EditDish() {
-  const { showLoading, setShowLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth(); 
+  const { showLoading, setShowLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth();
 
   const [ingredients, setIngredients] = useState([]);
-  const [newIngredient, setNewIngredient] = useState("");
   const [name, setName] = useState('')
   const [showWarning, setShowWarning] = useState(false);
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
+  const [newIngredient, setNewIngredient] = useState("");
   const [fileName, setFileName] = useState(null);
   const[dish, setDish] = useState('');
 
@@ -62,9 +62,7 @@ export function EditDish() {
   async function getIngredients() {
     try {
       const { data } = await api.get(`/ingredients/${params.id}`)
-      data.forEach(ingredient => {
-        setIngredients(prevState => [...prevState, ingredient.name])
-      });
+      setIngredients(data.map(ingredient => ingredient.name))
     } catch(error) {
       if(error.response) {
         setAlertMsg(error.response.data.message)
@@ -76,18 +74,6 @@ export function EditDish() {
     }
   }
 
-  function handleAddIngredient() {
-    if(newIngredient === '') {
-      setShowWarning(true)
-      return
-    }
-    setIngredients(prevState => [...prevState, newIngredient]);
-    setNewIngredient("");
-  }
-
-  function handleRemoveIngredient(deleted) {
-    setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted))
-  }
   
   function handlePrice(event) {
     const onlyDigits = event.target.value
@@ -161,6 +147,19 @@ export function EditDish() {
     }
   }
 
+  function handleAddIngredient() {
+    if(newIngredient === '') {
+      setShowWarning(true)
+      return
+    }
+    setIngredients(prevState => [...prevState, newIngredient]);
+    setNewIngredient("");
+  }
+
+  function handleRemoveIngredient(deleted) {
+    setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted))
+  }
+
   function handleDeleteDish() {
     setShowLoading(true)
     try {
@@ -186,12 +185,11 @@ export function EditDish() {
     getIngredients()
   }, [])
 
-  console.log(file)
 
   return (
     <Theme>
       <Alert msg={alertMsg} isSuccess={success}/>
-      <Back/>
+      <BackButton/>
       <C.Container>
         <h2>Editar prato</h2>
         <C.Content>
@@ -202,15 +200,15 @@ export function EditDish() {
 
           <div className="inputs-container">
             <div className="input-wrapper">
-              <label htmlFor="ingredients">Ingredients</label>
+              <label htmlFor="ingredients">Ingredientes</label>
               <div className="ingredients-wrapper">
-                <IngredientItem
+                 <IngredientItem
                 isNew
                 placeholder="Novo ingrediente"
                 value={newIngredient}
                 onChange={(e) => {
                   setShowWarning(false)
-                  setNewIngredient(e.target.value)
+                  setNewIngredient(e.value)
                 }}
                 onClick={handleAddIngredient}
                 />

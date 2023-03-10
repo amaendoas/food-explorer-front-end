@@ -1,18 +1,20 @@
 import * as C from "./styles";
 import { Theme } from "../../components/Theme";
-import { Back } from "../../components/Back";
+import { BackButton } from "../../components/BackButton";
 import { Input } from "../../components/Input"
 import { useState } from "react";
 import { api } from "../../services/api";
-import { CreateSelect, Select } from "../../components/Select";
+import { Select } from "../../components/Select";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/auth";
 import { Alert } from "../../components/Alert";
 import { Loading } from "../../components/Loading";
+import { IngredientItem } from "../../components/IngredientItem";
 
 export function AddDish() {
 
   const [ingredients, setIngredients] = useState([]);
+  const [newIngredient, setNewIngredient] = useState("");
   const [name, setName] = useState('')
   const [showWarning, setShowWarning] = useState(false);
   const [category, setCategory] = useState('');
@@ -27,32 +29,6 @@ export function AddDish() {
     { value: 'main', label: 'Pratos Principais'},
     { value: 'drink', label: 'Bebidas'},
     { value: 'dessert', label: 'Sobremesas'}
-  ]
-
-  const ingredientsOptions = [
-    { value: 'alface', label: 'alface'},
-    { value: 'ameixa', label: 'ameixa'},
-    { value: 'amêndoas', label: 'amêndoas'},
-    { value: 'aniz', label: 'aniz'},
-    { value: 'café', label: 'café'},
-    { value: 'camarão', label: 'camarão'},
-    { value: 'canela', label: 'canela'},
-    { value: 'damasco', label: 'damasco'},
-    { value: 'farinha', label: 'farinha'},
-    { value: 'limão', label: 'limão'},
-    { value: 'maçã', label: 'maçã'},
-    { value: 'maracujá', label: 'maracujá'},
-    { value: 'massa', label: 'massa'},
-    { value: 'pão', label: 'maracujá'},
-    { value: 'pão naan', label: 'pão naan'},
-    { value: 'pepino', label: 'pepino'},
-    { value: 'pêssego', label: 'pêssego'},
-    { value: 'pesto', label: 'pesto'},
-    { value: 'presunto', label: 'presunto'},
-    { value: 'rabanete', label: 'rabanete'},
-    { value: 'rúcula', label: 'rúcula'},
-    { value: 'tomate', label: 'tomate'},
-    { value: 'whiskey', label: 'whiskey'}
   ]
 
   function handleSelectCategory(selectedOption) {
@@ -83,8 +59,17 @@ export function AddDish() {
     setFile(file)
   }
 
-  function handleAddIngredients(selectedIngredients) {
-    setIngredients(selectedIngredients.map(ingredient => ingredient.value))
+  function handleAddIngredient() {
+    if(newIngredient === '') {
+      setShowWarning(true)
+      return
+    }
+    setIngredients(prevState => [...prevState, newIngredient]);
+    setNewIngredient("");
+  }
+
+  function handleRemoveIngredient(deleted) {
+    setIngredients(prevState => prevState.filter(ingredient => ingredient !== deleted))
   }
 
   function handleAddDish(par_file) {
@@ -139,7 +124,7 @@ export function AddDish() {
       }
       <C.Container>
       <Alert msg={alertMsg} isSuccess={success}/>
-        <Back/>
+        <BackButton/>
         <h2>Adicionar prato</h2>
         <C.Content>
           <div className="inputs-container">
@@ -151,12 +136,27 @@ export function AddDish() {
             <div className="input-wrapper">
               <label htmlFor="ingredients">Ingredientes</label>
               <div className="ingredients-wrapper">
-                <CreateSelect
-                  options={ingredientsOptions}
-                  placeholder="Selecione ou digite os ingredientes"
-                  isMulti
-                  onChange={handleAddIngredients}
+              <IngredientItem
+                isNew
+                placeholder="Novo ingrediente"
+                value={newIngredient}
+                onChange={(e) => {
+                  setShowWarning(false)
+                  setNewIngredient(e.value)
+                }}
+                onClick={handleAddIngredient}
                 />
+                {
+                  ingredients.map((ingredient, index) => {
+                    return (
+                      <IngredientItem
+                      key={index}
+                      value={ingredient}
+                      onClick={() => handleRemoveIngredient(ingredient)}
+                      />
+                    )
+                  })
+                }
               </div>
               {
                 showWarning &&

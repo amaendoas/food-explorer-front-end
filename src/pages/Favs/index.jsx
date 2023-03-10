@@ -4,7 +4,7 @@ import { Theme } from "../../components/Theme";
 import { useFavs } from "../../contexts/favs";
 import { api } from "../../services/api";
 import { FoodItem } from "../../components/FoodItem";
-import { Back } from "../../components/Back";
+import { BackButton } from "../../components/BackButton";
 import { useAuth } from "../../contexts/auth";
 import { Loading } from "../../components/Loading"
 
@@ -42,7 +42,7 @@ export function Favs() {
   return (
       <Theme>
         { showLoading && <Loading/> }
-        <Back/>
+        <BackButton/>
         <C.Container>
           <h2>Favoritos</h2>
           <C.Content>

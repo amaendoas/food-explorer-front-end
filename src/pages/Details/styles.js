@@ -6,12 +6,23 @@ export const Container = styled.div`
   width: 100%;
   height: 80%;
   grid-template-columns: 50% 50%;
-  grid-template-areas: "img info";
+  grid-template-rows: 10% 90%;
+  grid-template-areas:
+  "header header"
+  "img info"
+  ;
   background-color: ${({theme}) => theme.COLORS.BACKGROUND_900};
   -webkit-box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);
   -moz-box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);
   box-shadow: 0px 0px 40px 4px rgba(0, 0, 0, 0.56);
   border-radius: 10px;
+
+  `
+
+export const Header = styled.div`
+  grid-area: header;
+  display: flex;
+  justify-content: end;
 `
 
 export const DishImg = styled.div`
@@ -22,7 +33,7 @@ export const DishImg = styled.div`
   justify-content: center;
 
   img {
-    width: calc(8rem + 12vw);
+    width: calc(15rem + 10vw);
     height: auto;
     border-radius: 50%;
   }

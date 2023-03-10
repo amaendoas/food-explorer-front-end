@@ -26,6 +26,10 @@ export const Content = styled.div `
 
   .category-wrapper {
     width: 50%;
+
+    .select-div {
+      border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
+    }
   }
 
   .price {
@@ -46,12 +50,20 @@ export const Content = styled.div `
   }
 
   .ingredients-wrapper {
-    height: 4.2rem;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px;
+    width: fit-content;
   }
-  
+
   textarea {
     height: 10rem;
     padding: 1rem;
+  }
+
+  textarea, .ingredients-wrapper {
     border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
     width: 100%;
     border-radius: 5px;
@@ -93,7 +105,7 @@ export const Content = styled.div `
     }
 
     .category-wrapper {
-      width: 50%;
+      width: 100%;
     }
   }
 

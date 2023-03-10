@@ -28,6 +28,10 @@ height: 80%;
 
   .category-wrapper {
     width: 50%;
+
+    .select-div {
+      border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
+    }
   }
 
   .price {
@@ -56,21 +60,20 @@ height: 80%;
   }
 
   .ingredients-wrapper {
+    height: fit-content;
     display: flex;
-    width: fit-content;
-    gap: 1rem;
-    height: 4.2rem;
+    flex-wrap: wrap;
     align-items: center;
-    padding: 0 1rem;
-    position: relative;
+    padding: 5px;
+    width: fit-content;
   }
-  
+
   textarea {
     height: 10rem;
     padding: 1rem;
   }
-  
-  .ingredients-wrapper, textarea {
+
+  textarea, .ingredients-wrapper {
     border: 1px solid ${({theme}) => theme.COLORS.GRAY_200};
     width: 100%;
     border-radius: 5px;

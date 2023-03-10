@@ -32,6 +32,7 @@ export const Table = styled.table`
 `
 
 export const Content = styled.div`
+  min-height: 60vh;
   max-height: 60vh;
   overflow-y: auto;
 `

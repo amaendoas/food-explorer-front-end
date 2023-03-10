@@ -1,8 +1,9 @@
-import * as C from "./styles"
-import SelectComponent from "react-select"
-import CreatableSelect from 'react-select/creatable';
+import * as C from "./styles";
+import SelectComponent from "react-select";
 
-const styles = 
+
+export function Select({options, placeholder, onChange, isDisabled, isMulti, defaultValue, isNew}) {
+  const defaultStyles = 
   {
     container: (baseStyles, state) => ({
       ...baseStyles,
@@ -34,9 +35,9 @@ const styles =
     ...baseStyles,
     backgroundColor: '#000A0F',
     width: '100%',
-    alignSelf: 'center',
-    height: '100%',
-    color: '#C4C4C4'
+    height: '4rem',
+    color: '#C4C4C4',
+    border: 'none',
   }),
   singleValue: (baseStyles, state) => ({
     ...baseStyles,
@@ -56,33 +57,24 @@ const styles =
     ...baseStyles,
     backgroundColor: state.isFocused ? '#000A0F' : state.isSelected ? '#065E7C' : 'transparent',
   }),
+  indicatorsContainer: (baseStyles, state) => ({
+    ...baseStyles,
+    display: isNew ? 'none' : 'block',
+  }),
 }
 
-
-export function Select({options, placeholder, onChange, isDisabled, isMulti}) {
   return (
-    <C.Container>
+    <C.Container className="select-div">
       <SelectComponent
+      isNew={isNew}
+      defaultValue={defaultValue}
       isMulti={isMulti}
       isDisabled={isDisabled}
       placeholder={placeholder}
       onChange={onChange}
-      styles={styles}
+      styles={defaultStyles}
       options={options}
       />
     </C.Container>
-  )
-}
-
-export function CreateSelect({options, placeholder, onChange, isDisabled, isMulti}) {
-  return (
-    <CreatableSelect
-      isMulti={isMulti}
-      isDisabled={isDisabled}
-      placeholder={placeholder}
-      onChange={onChange}
-      styles={styles}
-      options={options}
-      />
   )
 }
