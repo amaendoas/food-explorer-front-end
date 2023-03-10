@@ -55,6 +55,7 @@ export const Content = styled.div `
     flex-wrap: wrap;
     align-items: center;
     padding: 5px;
+    gap: 10px;
     width: fit-content;
   }
 

@@ -65,6 +65,7 @@ height: 80%;
     flex-wrap: wrap;
     align-items: center;
     padding: 5px;
+    gap: 10px;
     width: fit-content;
   }
 
