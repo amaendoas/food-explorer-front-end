@@ -1,6 +1,6 @@
 import * as C from "./styles"
-import { Back } from "../../components/Back"
-import { useParams } from "react-router-dom"
+import { BackButton } from "../../components/BackButton"
+import { useNavigate, useParams } from "react-router-dom"
 import { Theme } from "../../components/Theme";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
@@ -11,12 +11,14 @@ import foodImg from "../../assets/food-default.svg"
 import { Ingredient } from "../../components/Ingredient";
 import { useCart } from "../../contexts/cart";
 import { Alert } from "../../components/Alert";
+import {MdEdit} from "react-icons/md"
 
 export function Details() {
   const [dish, setDish] = useState(null);
-  const { showLoading, setShowLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth();
+  const { user, showLoading, setShowLoading, success, alertMsg, setAlertMsg, setSuccess } = useAuth();
   const [ingredients, setIngredients] = useState([]);
-  const { newCart, cart } = useCart()
+  const { newCart, cart } = useCart();
+  const navigate = useNavigate();
   const params = useParams();
 
   async function getDish() {
@@ -60,10 +62,18 @@ export function Details() {
   return(
     <Theme>
       <Alert msg={alertMsg} isSuccess={success}/>
-      <Back/>
+      <BackButton/>
         {
           dish &&
-        <C.Container>
+          <C.Container>
+          <C.Header>
+          {user.isAdmin ?
+          <button className="edit-btn" onClick={() => navigate(`/edit/${dish.id}`)}>
+           <MdEdit size={30}/>
+          </button>
+          : <></>
+          }
+          </C.Header>
           <C.DishImg>
             <img src={dish.image ? `${api.defaults.baseURL}/files/${dish.image}` : foodImg} alt="" />
           </C.DishImg>

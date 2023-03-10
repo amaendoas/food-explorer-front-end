@@ -100,12 +100,11 @@ export function Ingredient({ingredient}) {
   else if(currentIngredient === "tomate") {
     ingredientImg = tomato;
   }
-  else if(currentIngredient === "whiskey" || "whisky") {
+  else if(currentIngredient === "whiskey") {
     ingredientImg = whisky;
   } else {
     ingredientImg = foodImg;
   }
-
 
   return (
     <C.Container>
